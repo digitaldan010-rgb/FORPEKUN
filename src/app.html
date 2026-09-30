@@ -1,0 +1,1012 @@
+<title>Rank Staff Leaderboard</title>
+<meta name="description" content="Live Deposit Drive and Referrals performance for Rank staff.">
+<meta name="theme-color" content="#260D02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Schibsted+Grotesk:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: soft canvas, one dark "night" summary card as the anchor, white cards around it.
+   12-col grid on desktop, single column on phones. Signature: Rank's segmented progress bar
+   (one segment = one month's ₦5M on Deposits, five referrals on Referrals). */
+:root {
+  --bg: #F2F2F2;
+  --surface: #FFFFFF;
+  --surface-2: #F6F2EF;
+  --ink: #260D02;
+  --ink-2: #6A5850;
+  --line: #E7E0DB;
+  --logo: #702D00;
+  --accent-text: #702D00;
+  --orange: #FF6A00;
+  --on-orange: #260D02;
+  --pink: #F396AC;
+  --maroon: #4E001F;
+  --night: #260D02;
+  --night-fg: #F2F2F2;
+  --night-2: #CDBBB0;
+  --track: rgba(38, 13, 2, .09);
+  --track-night: rgba(242, 242, 242, .14);
+  --me: #FFF1E6;
+  --pill: #260D02;
+  --on-pill: #F2F2F2;
+  --shadow: 0 1px 2px rgba(38, 13, 2, .04), 0 8px 24px -12px rgba(38, 13, 2, .12);
+
+  --f-display: "Dazzed", "Schibsted Grotesk", "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --r-card: 24px;
+  --r-inner: 14px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --gutter: clamp(16px, 4vw, 32px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #130601; --surface: #1D0A02; --surface-2: #28120A; --ink: #F2F2F2; --ink-2: #C2B0A6;
+    --line: #3A2116; --logo: #F2F2F2; --accent-text: #FF8A3D; --night: #33160A; --night-fg: #F2F2F2;
+    --night-2: #D2C0B5; --track: rgba(242, 242, 242, .1); --track-night: rgba(242, 242, 242, .14);
+    --me: #3A1A0A; --pill: #FF6A00; --on-pill: #260D02; --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #130601; --surface: #1D0A02; --surface-2: #28120A; --ink: #F2F2F2; --ink-2: #C2B0A6;
+  --line: #3A2116; --logo: #F2F2F2; --accent-text: #FF8A3D; --night: #33160A; --night-fg: #F2F2F2;
+  --night-2: #D2C0B5; --track: rgba(242, 242, 242, .1); --track-night: rgba(242, 242, 242, .14);
+  --me: #3A1A0A; --pill: #FF6A00; --on-pill: #260D02; --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 16px/1.5 var(--f-body);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--orange); color: var(--on-orange); }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 8px; }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+.icon { width: 18px; height: 18px; stroke-width: 2; flex: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: var(--gutter); padding-block: 16px 48px; }
+
+/* ---------- top bar ---------- */
+.top {
+  display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap;
+  background: var(--surface); border-radius: 999px; padding: 10px 10px 10px 22px;
+  box-shadow: var(--shadow);
+}
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; margin-right: auto; }
+.logo {
+  display: block; width: 84px; height: 25px; background: var(--logo);
+  -webkit-mask: url("data:image/png;base64,%%LOGO%%") left center / contain no-repeat;
+          mask: url("data:image/png;base64,%%LOGO%%") left center / contain no-repeat;
+}
+.brand-sub { font-size: 14px; color: var(--ink-2); padding-left: 12px; border-left: 1px solid var(--line); line-height: 1.2; }
+
+.mode {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--surface-2); border-radius: 999px; padding: 4px;
+}
+.mode button {
+  position: relative; z-index: 1; border: 0; background: none; padding: 10px 18px; border-radius: 999px;
+  font-weight: 600; font-size: 15px; white-space: nowrap; color: var(--ink-2);
+  transition: color 200ms ease, transform 160ms var(--ease-out);
+}
+.mode button[aria-pressed="true"] { color: var(--on-pill); }
+.mode button:active { transform: scale(0.97); }
+.mode-pill {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+  background: var(--pill); border-radius: 999px;
+  transition: transform 320ms var(--ease-out);
+}
+.mode[data-mode="referral"] .mode-pill { transform: translateX(100%); }
+
+.sync { display: flex; align-items: center; gap: 10px; }
+.status { font-size: 13px; color: var(--ink-2); text-align: right; line-height: 1.3; }
+.status b { color: var(--ink); font-weight: 600; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line);
+  background: var(--surface); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 14px;
+  transition: transform 160ms var(--ease-out), background-color 200ms ease;
+  min-height: 44px;
+}
+.btn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .btn:hover { background: var(--surface-2); } }
+.btn[aria-busy="true"] .icon { animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.notice {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 12px; padding: 10px 14px; border-radius: 16px; font-size: 14px;
+  background: var(--pink); color: var(--maroon);
+}
+.notice .btn { min-height: 34px; padding: 5px 12px; background: transparent; border-color: rgba(78, 0, 31, .3); color: var(--maroon); }
+
+/* ---------- grid ---------- */
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.card { background: var(--surface); border-radius: var(--r-card); padding: 24px; box-shadow: var(--shadow); min-width: 0; }
+.col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.col-main { grid-column: span 7; }
+.col-side { grid-column: span 5; }
+.span-12 { grid-column: span 12; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.card-head h2 { font-size: 20px; font-weight: 800; }
+.card-head p { margin: 2px 0 0; font-size: 14px; color: var(--ink-2); }
+
+/* ---------- summary (night card) ---------- */
+.summary { background: var(--night); color: var(--night-fg); display: flex; flex-direction: column; gap: 22px; }
+.summary .label { margin: 0; font-size: 15px; color: var(--night-2); }
+.total { font-family: var(--f-display); font-weight: 900; font-size: clamp(44px, 8vw, 76px); line-height: 1; letter-spacing: -0.035em; margin: 6px 0 0; }
+.of { margin: 10px 0 0; font-size: 16px; color: var(--night-2); }
+.of b { color: var(--night-fg); font-weight: 600; }
+.of .pct { color: var(--orange); font-weight: 700; }
+.summary .seg { --trk: var(--track-night); }
+.seg-labels { display: grid; gap: 6px; margin-top: 8px; font-size: 12px; color: var(--night-2); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding-top: 20px; border-top: 1px solid var(--track-night); }
+.facts dt { font-size: 13px; color: var(--night-2); margin-bottom: 4px; }
+.facts dd { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 19px; line-height: 1.2; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.facts dd small { display: block; font-family: var(--f-body); font-weight: 500; font-size: 13px; color: var(--night-2); letter-spacing: 0; margin-top: 2px; }
+
+/* ---------- segmented bar ---------- */
+.seg { --trk: var(--track); display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; height: 8px; }
+.seg.lg { height: 12px; gap: 6px; }
+.seg.sm { height: 6px; gap: 3px; }
+.seg > span { position: relative; overflow: hidden; border-radius: 999px; background: var(--trk); }
+.seg > span > i {
+  position: absolute; inset: 0; background: var(--orange); border-radius: inherit;
+  transform-origin: left center; transform: scaleX(var(--f, 0));
+  transition: transform 700ms var(--ease-out); transition-delay: calc(var(--i, 0) * 45ms);
+}
+.seg.pre > span > i { transform: scaleX(0); transition: none; }
+
+/* ---------- chips ---------- */
+.chip { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 2px 9px; font-size: 12px; font-weight: 700; line-height: 1.5; white-space: nowrap; }
+.chip.hit { background: var(--orange); color: var(--on-orange); }
+.chip.close { background: var(--pink); color: var(--maroon); }
+
+/* ---------- find me ---------- */
+.find { display: flex; flex-direction: column; }
+.field { position: relative; }
+.field label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.input-row { position: relative; }
+.input-row .icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--ink-2); pointer-events: none; }
+#q {
+  width: 100%; min-height: 50px; border: 1px solid var(--line); background: var(--surface-2);
+  border-radius: var(--r-inner); padding: 12px 84px 12px 42px; font-size: 16px;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+#q::placeholder { color: var(--ink-2); }
+#q:focus { outline: none; border-color: var(--orange); background: var(--surface); }
+.clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: none; font-size: 14px; font-weight: 600; color: var(--ink-2); padding: 10px; border-radius: 10px; }
+.suggest {
+  position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-inner); box-shadow: 0 12px 32px -12px rgba(38, 13, 2, .3);
+  transform-origin: top center; animation: pop 160ms var(--ease-out);
+}
+@keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+.suggest li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; cursor: pointer; }
+.suggest li small { color: var(--ink-2); font-size: 13px; text-align: right; }
+.suggest li[aria-selected="true"] { background: var(--surface-2); }
+.suggest .none { color: var(--ink-2); cursor: default; }
+
+.me { margin-top: 18px; display: flex; flex-direction: column; gap: 16px; }
+.me-name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.me-name h3 { font-size: 22px; font-weight: 800; }
+.me-name p { margin: 0; color: var(--ink-2); font-size: 14px; }
+.me-val { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.me-val b { font-family: var(--f-display); font-weight: 900; font-size: 36px; letter-spacing: -0.03em; line-height: 1; }
+.me-val span { color: var(--ink-2); font-size: 15px; }
+.me-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.me-grid div { background: var(--surface-2); border-radius: var(--r-inner); padding: 12px; min-width: 0; }
+.me-grid dt { font-size: 12px; color: var(--ink-2); }
+.me-grid dd { margin: 2px 0 0; font-family: var(--f-display); font-weight: 800; font-size: 18px; line-height: 1.2; overflow-wrap: anywhere; }
+.me-other { margin: 0; font-size: 14px; color: var(--ink-2); }
+.me-other b { color: var(--ink); }
+.find-empty { margin: 18px 0 0; color: var(--ink-2); font-size: 15px; }
+
+/* ---------- rows (teams, leaderboard, closest, dialog) ---------- */
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.row {
+  display: grid; align-items: center; gap: 6px 14px; padding: 12px; border-radius: var(--r-inner);
+  grid-template-columns: 2.2rem minmax(0, 1fr) minmax(0, 12rem) 6.5rem;
+}
+.row.is-me { background: var(--me); }
+.rank { font-family: var(--f-display); font-weight: 800; font-size: 17px; color: var(--ink-2); }
+.row:nth-child(-n+3) .rank.podium { color: var(--accent-text); }
+.who { min-width: 0; }
+.who b { display: block; font-weight: 600; font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.who small { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--ink-2); font-size: 13px; margin-top: 1px; }
+.num { text-align: right; }
+.num b { display: block; font-weight: 700; font-size: 16px; }
+.num small { color: var(--ink-2); font-size: 13px; }
+button.row { width: 100%; border: 0; background: none; text-align: left; transition: background-color 200ms ease, transform 160ms var(--ease-out); }
+button.row:active { transform: scale(0.99); }
+@media (hover: hover) and (pointer: fine) { button.row:hover { background: var(--surface-2); } }
+.team-row { grid-template-columns: 2.2rem minmax(0, 1fr) minmax(0, 11rem) 5rem 1.2rem; }
+.team-row .chev { color: var(--ink-2); }
+
+.sort { display: inline-grid; grid-auto-flow: column; background: var(--surface-2); border-radius: 999px; padding: 3px; }
+.sort button { border: 0; background: none; border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--ink-2); min-height: 32px; transition: background-color 200ms ease, color 200ms ease; }
+.sort button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(38, 13, 2, .12); }
+
+.closest .row { grid-template-columns: minmax(0, 1fr) 7rem; padding-inline: 4px; }
+.closest .gap { display: block; color: var(--accent-text); font-weight: 600; font-size: 13px; }
+.closest-note { margin: 14px 0 0; font-size: 14px; color: var(--ink-2); }
+
+.more { margin: 14px auto 0; display: flex; }
+
+/* skeletons */
+.sk { display: block; border-radius: 8px; background: linear-gradient(90deg, var(--track) 0%, var(--surface-2) 50%, var(--track) 100%); background-size: 200% 100%; animation: sheen 1.4s ease-in-out infinite; height: 14px; }
+.summary .sk { background: var(--track-night); }
+@keyframes sheen { to { background-position: -200% 0; } }
+
+.empty-state { padding: 28px 8px; text-align: center; color: var(--ink-2); }
+.empty-state h3 { color: var(--ink); font-size: 18px; margin-bottom: 6px; }
+.empty-state p { margin: 0 auto; max-width: 46ch; }
+
+footer { margin-top: 24px; font-size: 13px; color: var(--ink-2); text-align: center; max-width: 70ch; margin-inline: auto; }
+
+/* ---------- team dialog ---------- */
+dialog {
+  border: 0; padding: 0; width: min(640px, calc(100% - 32px)); max-height: min(86dvh, 820px);
+  border-radius: var(--r-card); background: var(--surface); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(38, 13, 2, .5);
+}
+dialog[open] { animation: sheet-in 260ms var(--ease-out); display: flex; flex-direction: column; }
+dialog::backdrop { background: rgba(38, 13, 2, .45); animation: fade 200ms ease; }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+@keyframes fade { from { opacity: 0; } }
+.dlg-head { padding: 22px 22px 16px; border-bottom: 1px solid var(--line); }
+.dlg-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.dlg-top h2 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; }
+.dlg-top p { margin: 2px 0 0; color: var(--ink-2); font-size: 14px; }
+.dlg-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0 12px; }
+.dlg-stats div { background: var(--surface-2); border-radius: var(--r-inner); padding: 10px 12px; }
+.dlg-stats dt { font-size: 12px; color: var(--ink-2); }
+.dlg-stats dd { margin: 2px 0 0; font-family: var(--f-display); font-weight: 800; font-size: 18px; }
+.dlg-body { overflow-y: auto; padding: 10px; overscroll-behavior: contain; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .col { display: contents; }
+  .col > .card { grid-column: span 12; }
+  .summary { order: 1; } .find { order: 2; } .closest { order: 3; } .teams { order: 4; } .board { order: 5; }
+}
+@media (max-width: 720px) {
+  .wrap { padding-block: 10px 36px; }
+  .top { border-radius: 24px; padding: 12px; gap: 12px; }
+  .brand { width: 100%; justify-content: space-between; margin: 0; padding: 2px 6px 0; }
+  .mode { flex: 1 1 100%; }
+  .mode button { padding: 11px 10px; }
+  .sync { flex: 1 1 100%; justify-content: space-between; }
+  .status { text-align: left; }
+  .card { padding: 18px; }
+  .facts { grid-template-columns: 1fr 1fr; }
+  .facts > div:first-child { grid-column: span 2; }
+  .row, .team-row { grid-template-columns: 1.8rem minmax(0, 1fr) auto; padding: 12px 8px; }
+  .row > .seg, .team-row > .seg { grid-column: 2 / -1; grid-row: 2; }
+  .team-row .chev { display: none; }
+  .closest .row { grid-template-columns: minmax(0, 1fr) auto; }
+  .dlg-stats dd { font-size: 16px; }
+  dialog { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: var(--r-card) var(--r-card) 0 0; max-height: 88dvh; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  @keyframes sheet-in { from { transform: translateY(40px); opacity: 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
+  .seg > span > i, .mode-pill { transition: none; }
+}
+</style>
+<!--BODY-->
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#" aria-label="Rank staff leaderboard">
+      <span class="logo" role="img" aria-label="Rank"></span>
+      <span class="brand-sub">Staff leaderboard</span>
+    </a>
+    <div class="mode" id="mode" data-mode="deposit" role="group" aria-label="Choose a board">
+      <span class="mode-pill" aria-hidden="true"></span>
+      <button type="button" id="mode-deposit" data-mode="deposit" aria-pressed="true">Deposit Drive</button>
+      <button type="button" id="mode-referral" data-mode="referral" aria-pressed="false">Referrals</button>
+    </div>
+    <div class="sync">
+      <div class="status" id="status">Loading the sheet…</div>
+      <button type="button" class="btn" id="refresh"><i data-lucide="refresh-cw" class="icon" aria-hidden="true"></i>Refresh</button>
+    </div>
+  </header>
+  <div class="notice" id="notice" role="status" hidden></div>
+
+  <main class="grid">
+    <div class="col col-main">
+      <section class="card summary" aria-labelledby="sum-label">
+      <div>
+        <p class="label" id="sum-label">Deposits so far this year</p>
+        <p class="total" id="total"><span class="sk" style="height:64px;width:60%"></span></p>
+        <p class="of" id="of"><span class="sk" style="width:45%;margin-top:8px"></span></p>
+      </div>
+      <div>
+        <div class="seg lg" id="total-bar"></div>
+        <div class="seg-labels" id="total-labels"></div>
+      </div>
+      <dl class="facts" id="facts"></dl>
+    </section>
+
+    <section class="card teams" aria-labelledby="teams-title">
+      <div class="card-head">
+        <div>
+          <h2 id="teams-title">Teams</h2>
+          <p id="teams-sub">Tap a team to see its people.</p>
+        </div>
+        <div class="sort" role="group" aria-label="Rank teams by">
+          <button type="button" id="sort-pct" data-sort="pct" aria-pressed="true">% of target</button>
+          <button type="button" id="sort-total" data-sort="total" aria-pressed="false">Total</button>
+        </div>
+      </div>
+      <ol class="list" id="teams"></ol>
+    </section>
+    </div>
+    <div class="col col-side">
+    <section class="card find" aria-labelledby="find-title">
+      <div class="card-head">
+        <div>
+          <h2 id="find-title">Find me</h2>
+          <p>See your number, your rank and what's left to hit target.</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="q">Your name</label>
+        <div class="input-row">
+          <i data-lucide="search" class="icon" aria-hidden="true"></i>
+          <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Start typing, e.g. Ayomide"
+                 role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list">
+          <button type="button" class="clear" id="clear" hidden>Clear</button>
+        </div>
+        <ul class="suggest" id="suggest" role="listbox" aria-label="Matching names" hidden></ul>
+      </div>
+      <div id="me"></div>
+    </section>
+
+    <section class="card closest" aria-labelledby="close-title">
+      <div class="card-head">
+        <div>
+          <h2 id="close-title">Closest to target</h2>
+          <p>Who's one good push away.</p>
+        </div>
+      </div>
+      <ol class="list" id="closest"></ol>
+      <p class="closest-note" id="closest-note"></p>
+    </section>
+    </div>
+
+
+
+
+    <section class="card board span-12" aria-labelledby="board-title">
+      <div class="card-head">
+        <div>
+          <h2 id="board-title">Leaderboard</h2>
+          <p id="board-sub"></p>
+        </div>
+      </div>
+      <ol class="list" id="board"></ol>
+      <button type="button" class="btn more" id="more" hidden></button>
+    </section>
+  </main>
+
+  <footer id="foot"></footer>
+</div>
+
+<dialog id="team-dialog" aria-labelledby="dlg-title">
+  <div class="dlg-head">
+    <div class="dlg-top">
+      <div><h2 id="dlg-title"></h2><p id="dlg-sub"></p></div>
+      <button type="button" class="btn" id="dlg-close"><i data-lucide="x" class="icon" aria-hidden="true"></i>Close</button>
+    </div>
+    <dl class="dlg-stats" id="dlg-stats"></dl>
+    <div class="seg" id="dlg-bar"></div>
+  </div>
+  <div class="dlg-body"><ol class="list" id="dlg-list"></ol></div>
+</dialog>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<!--SNAPSHOT-->
+<script>
+/* =====================================================================
+   SETTINGS: the only part you should ever need to edit.
+   publishedId: the long id from your "Publish to web" link (.../d/e/<THIS>/pubhtml)
+   gid: the number after "#gid=" in the sheet's address bar when that tab is open.
+        Leave the Deposit gid empty only if Deposit is the FIRST tab in the sheet.
+   ===================================================================== */
+const CONFIG = {
+  publishedId: "2PACX-1vSOMfEmuN0jED9WdPj-CDoHbahWbfWVfllkC-KwW-8f2mrQGPAcfqzU_VzcQRtTdCZyi87ZjTiRN2fg",
+  deposit:  { gid: "%%DEPOSIT_GID%%",  tabName: "LEADERSHIP BOARD (2)", target: 45000000 },
+  referral: { gid: "%%REFERRAL_GID%%", tabName: "Referral BOARD",       target: 20 },
+  refreshSeconds: 60,
+};
+
+(() => {
+"use strict";
+
+const MODES = {
+  deposit: {
+    label: "Deposit Drive", noun: "Deposits", money: true, segments: 9,
+    segLabels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    summaryLabel: "Deposits so far this year",
+  },
+  referral: {
+    label: "Referrals", noun: "Referrals", money: false, segments: 4,
+    segLabels: ["5", "10", "15", "20"],
+    summaryLabel: "Referrals so far this year",
+  },
+};
+const BOARD_PREVIEW = 15;
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- storage (per-viewer conveniences only) ---------- */
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem("rank." + k)); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem("rank." + k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem("rank." + k); } catch {} },
+};
+
+/* ---------- parsing ---------- */
+function parseCSV(text) {
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+    else if (c !== "\r") f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+function num(v) {
+  if (v == null) return null;
+  let s = String(v).trim();
+  if (!s) return null;
+  if (/^[-‒-―]+$/.test(s)) return 0;            // " -  " is how Sheets shows zero
+  const neg = /^\(.*\)$/.test(s) || /^-/.test(s);
+  s = s.replace(/[₦$,\s()%]/g, "").replace(/^-/, "");
+  if (!/^\d*\.?\d+(e[+-]?\d+)?$/i.test(s)) return null;    // "#REF!", "N/A", text
+  const n = parseFloat(s);
+  return neg ? -n : n;
+}
+const clean = s => String(s ?? "").replace(/\s+/g, " ").trim();
+const keyOf = s => clean(s).toLowerCase().replace(/[^a-z]/g, "");
+const cellKey = s => clean(s).toUpperCase();
+function teamCase(s) {
+  return clean(s).toLowerCase().split(" ").map(w => {
+    if (w === "sme") return "SME";
+    if (w === "ceo's" || w === "ceo") return w === "ceo" ? "CEO" : "CEO's";
+    return w.charAt(0).toUpperCase() + w.slice(1);
+  }).join(" ");
+}
+class ShapeError extends Error {}
+function findHeader(rows, must) {
+  for (let r = 0; r < Math.min(rows.length, 60); r++) {
+    const keys = rows[r].map(cellKey);
+    if (must.every(m => keys.includes(m))) return { r, col: name => keys.indexOf(name) };
+  }
+  return null;
+}
+function addPerson(map, p) {
+  const k = keyOf(p.name);
+  if (!k) return;
+  const prev = map.get(k);
+  if (!prev) map.set(k, p);
+  else if (p.value > prev.value) map.set(k, { ...p, team: prev.team === "Unassigned" ? p.team : prev.team });
+}
+
+/* Deposit tab: team names are heading rows ("PRODUCT", "LEGAL"), people sit under them. */
+function parseDeposit(rows) {
+  const h = findHeader(rows, ["NAMES", "YTD ACHIEVED"]);
+  if (!h) throw new ShapeError("The Deposit tab doesn't have the NAMES and YTD ACHIEVED columns. Check the Deposit gid.");
+  const cName = h.col("NAMES"), cAch = h.col("YTD ACHIEVED"), cTgt = h.col("YTD TARGET"), cBud = h.col("MONTHLY BUDGET");
+  const people = new Map(); let team = "Unassigned";
+  for (let r = h.r + 1; r < rows.length; r++) {
+    const row = rows[r], name = clean(row[cName]);
+    if (!name) continue;
+    const ach = num(row[cAch]);
+    const budget = cBud >= 0 ? num(row[cBud]) : null;
+    const allCaps = name === name.toUpperCase() && /[A-Z]/.test(name);
+    if (allCaps && !(ach > 0)) { team = teamCase(name); continue; }            // team heading
+    if (budget == null && !(ach > 0)) continue;                               // notes, totals, stray labels
+    const tgt = cTgt >= 0 ? num(row[cTgt]) : null;
+    addPerson(people, { name, team, value: Math.max(0, ach || 0), target: tgt > 0 ? tgt : CONFIG.deposit.target });
+  }
+  if (!people.size) throw new ShapeError("The Deposit tab loaded but had no people in it.");
+  return [...people.values()];
+}
+
+/* Referral tab: NAMES | TEAM | TARGET | NUMBERS. Blank rows split teams; a few rows further down
+   use heading rows instead of the TEAM column and sit one column to the left. */
+function parseReferral(rows) {
+  const h = findHeader(rows, ["NAMES", "NUMBERS"]);
+  if (!h) throw new ShapeError("The Referrals link returned a different tab (no NUMBERS column). Check the Referrals gid.");
+  const cName = h.col("NAMES"), cTeam = h.col("TEAM"), cTgt = h.col("TARGET"), cNum = h.col("NUMBERS");
+  const people = new Map(); let carry = null;
+  for (let r = h.r + 1; r < rows.length; r++) {
+    const row = rows[r], name = clean(row[cName]);
+    if (!name) { if (!row.some(c => clean(c))) carry = null; continue; }
+    const teamCell = cTeam >= 0 ? clean(row[cTeam]) : "";
+    const rest = row.slice(cName + 1).map(num).filter(n => n != null);
+    const sn = clean(row[0]);
+    if (!teamCell && !sn && !rest.length) { carry = teamCase(name); continue; }  // heading row
+    let team, target, value;
+    if (teamCell && num(teamCell) == null) {
+      team = teamCell; target = num(row[cTgt]); value = num(row[cNum]);
+    } else if (teamCell) {                                                         // shifted row
+      team = carry; target = num(teamCell); value = num(row[cNum - 1]) ?? num(row[cNum]);
+    } else {
+      team = carry; target = num(row[cTgt]); value = num(row[cNum]);
+    }
+    addPerson(people, { name, team: team || "Unassigned", value: Math.max(0, value || 0), target: target > 0 ? target : CONFIG.referral.target });
+  }
+  if (!people.size) throw new ShapeError("The Referrals tab loaded but had no people in it.");
+  return [...people.values()];
+}
+const PARSERS = { deposit: parseDeposit, referral: parseReferral };
+
+/* ---------- model ---------- */
+function rankList(list, by) {
+  const sorted = [...list].sort((a, b) => b[by] - a[by] || a.name.localeCompare(b.name));
+  sorted.forEach((p, i) => { p._r = i > 0 && sorted[i - 1][by] === p[by] ? sorted[i - 1]._r : i + 1; });
+  return sorted;
+}
+function buildModel(people) {
+  const ps = people.map(p => ({ ...p, pct: p.target ? p.value / p.target : 0 }));
+  const ranked = rankList(ps, "value");
+  ranked.forEach(p => { p.rank = p._r; });
+  const teamsMap = new Map();
+  for (const p of ranked) {
+    if (!teamsMap.has(p.team)) teamsMap.set(p.team, { name: p.team, members: [], total: 0, target: 0 });
+    const t = teamsMap.get(p.team); t.members.push(p); t.total += p.value; t.target += p.target;
+  }
+  const teams = [...teamsMap.values()].map(t => {
+    t.avg = t.total / t.members.length; t.pct = t.target ? t.total / t.target : 0;
+    rankList(t.members, "value").forEach(m => { m.teamRank = m._r; });
+    t.members.sort((a, b) => a.teamRank - b.teamRank || a.name.localeCompare(b.name));
+    return t;
+  });
+  const total = ranked.reduce((s, p) => s + p.value, 0);
+  const target = ranked.reduce((s, p) => s + p.target, 0);
+  return {
+    people: ranked, teams, total, target, pct: target ? total / target : 0,
+    onTarget: ranked.filter(p => p.pct >= 1).length,
+    notStarted: ranked.filter(p => p.value <= 0).length,
+    byKey: new Map(ranked.map(p => [keyOf(p.name), p])),
+  };
+}
+function sortedTeams(model, by) {
+  return [...model.teams].sort((a, b) => b[by] - a[by] || b.total - a.total || a.name.localeCompare(b.name));
+}
+
+/* ---------- formatting ---------- */
+const nf0 = new Intl.NumberFormat("en-NG", { maximumFractionDigits: 0 });
+function trimZero(s) { return s.replace(/\.0+$/, "").replace(/(\.\d*[1-9])0+$/, "$1"); }
+function moneyShort(v) {
+  const a = Math.abs(v);
+  if (a >= 1e9) return "₦" + trimZero((v / 1e9).toFixed(2)) + "B";
+  if (a >= 1e6) return "₦" + trimZero((v / 1e6).toFixed(a >= 1e8 ? 0 : 1)) + "M";
+  if (a >= 1e3) return "₦" + trimZero((v / 1e3).toFixed(0)) + "K";
+  return "₦" + nf0.format(v);
+}
+const moneyFull = v => "₦" + nf0.format(Math.round(v));
+function pctText(p) {
+  const v = p * 100;
+  if (v === 0) return "0%";
+  if (v < 10) return trimZero(v.toFixed(1)) + "%";
+  return Math.round(v) + "%";
+}
+const fmt = (mode, v, full) => MODES[mode].money ? (full ? moneyFull(v) : moneyShort(v)) : nf0.format(v);
+const unit = (mode, v) => MODES[mode].money ? "" : (v === 1 ? " referral" : " referrals");
+function ordinal(n) { const s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+function timeText(d) { return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+function agoText(d) {
+  const s = Math.round((Date.now() - d.getTime()) / 1000);
+  if (s < 45) return "just now";
+  const m = Math.round(s / 60);
+  if (m < 60) return m + " min ago";
+  const h = Math.round(m / 60);
+  return h < 24 ? h + " h ago" : d.toLocaleDateString([], { day: "numeric", month: "short" });
+}
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/* ---------- bits of UI ---------- */
+function segHTML(pct, n, size = "", id = "") {
+  let out = `<div class="${["seg", size, "pre"].filter(Boolean).join(" ")}"${id ? ` id="${id}"` : ""} role="img" aria-label="${pctText(pct)} of target">`;
+  for (let i = 0; i < n; i++) {
+    const f = Math.max(0, Math.min(1, pct * n - i));
+    out += `<span><i style="--f:${f.toFixed(3)};--i:${i}"></i></span>`;
+  }
+  return out + "</div>";
+}
+function chipHTML(p) {
+  if (p >= 1) return `<span class="chip hit">Target hit</span>`;
+  if (p >= 0.7) return `<span class="chip close">Close</span>`;
+  return "";
+}
+function playBars(root) {
+  const bars = root.querySelectorAll(".seg.pre");
+  if (!bars.length) return;
+  if (reduceMotion) { bars.forEach(b => b.classList.remove("pre")); return; }
+  requestAnimationFrame(() => requestAnimationFrame(() => bars.forEach(b => b.classList.remove("pre"))));
+}
+function countTo(el, to, format) {
+  const from = el._v ?? 0; el._v = to;
+  if (reduceMotion || from === to) { el.textContent = format(to); return; }
+  const start = performance.now(), dur = 900;
+  cancelAnimationFrame(el._raf);
+  const step = now => {
+    const t = Math.min(1, (now - start) / dur), e = 1 - Math.pow(1 - t, 4);
+    el.textContent = format(from + (to - from) * e);
+    if (t < 1) el._raf = requestAnimationFrame(step);
+  };
+  el._raf = requestAnimationFrame(step);
+}
+const icons = () => { try { window.lucide && lucide.createIcons({ attrs: { "aria-hidden": "true" } }); } catch {} };
+
+/* ---------- state ---------- */
+const $ = id => document.getElementById(id);
+const state = {
+  mode: "deposit",
+  data: { deposit: null, referral: null },      // { people, at: Date, source }
+  errors: { deposit: null, referral: null },
+  teamSort: "pct",
+  showAll: false,
+  me: store.get("me"),                           // name key
+  loading: false,
+  lastTry: null,
+  firstPaint: true,
+};
+const initialHash = location.hash.replace("#", "");
+state.mode = initialHash === "referrals" ? "referral" : initialHash === "deposits" ? "deposit" : (store.get("mode") || "deposit");
+if (!MODES[state.mode]) state.mode = "deposit";
+
+/* ---------- fetching ---------- */
+const base = () => `https://docs.google.com/spreadsheets/d/e/${CONFIG.publishedId}`;
+const realGid = g => g && !/^%%/.test(g) ? String(g).trim() : "";
+let gidCache = store.get("gids") || {};
+
+async function discoverGids() {
+  const res = await fetch(`${base()}/pubhtml`, { cache: "no-store" });
+  if (!res.ok) throw new Error("pubhtml " + res.status);
+  const html = await res.text();
+  const found = {};
+  const re = /name:\s*"((?:[^"\\]|\\.)*)"[^}]*?gid:\s*"(\d+)"/g;
+  let m;
+  while ((m = re.exec(html))) found[clean(m[1].replace(/\\(.)/g, "$1")).toUpperCase()] = m[2];
+  const pick = (want, fallback) => found[clean(want).toUpperCase()] || Object.entries(found).find(([n]) => fallback.test(n))?.[1] || "";
+  gidCache = { deposit: pick(CONFIG.deposit.tabName, /LEADERSHIP/), referral: pick(CONFIG.referral.tabName, /REFERRAL/) };
+  store.set("gids", gidCache);
+  return gidCache;
+}
+async function gidFor(kind) {
+  const set = realGid(CONFIG[kind].gid);
+  if (set) return set;
+  if (gidCache[kind]) return gidCache[kind];
+  try { await discoverGids(); } catch {}
+  return gidCache[kind] || "";
+}
+async function fetchTab(kind) {
+  const gid = await gidFor(kind);
+  if (!gid && kind === "referral") {
+    throw new ShapeError("The Referrals tab isn't connected yet. Add its gid in the settings at the top of the script in index.html.");
+  }
+  const url = `${base()}/pub?output=csv` + (gid ? `&gid=${gid}&single=true` : "");
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`The sheet answered with error ${res.status}.`);
+  const text = await res.text();
+  if (/^\s*</.test(text)) throw new Error("The sheet isn't published as CSV. Publish it to the web and try again.");
+  return PARSERS[kind](parseCSV(text));
+}
+
+async function load() {
+  if (state.loading) return;
+  state.loading = true; state.lastTry = new Date();
+  $("refresh").setAttribute("aria-busy", "true");
+  renderStatus();
+  const kinds = ["deposit", "referral"];
+  const results = await Promise.allSettled(kinds.map(fetchTab));
+  results.forEach((r, i) => {
+    const k = kinds[i];
+    if (r.status === "fulfilled") {
+      state.data[k] = { people: r.value, at: new Date(), source: "live" };
+      state.errors[k] = null;
+      store.set("cache." + k, { people: r.value, at: Date.now() });
+    } else {
+      state.errors[k] = r.reason;
+      if (!state.data[k]) state.data[k] = fromCache(k) || fromSnapshot(k);
+    }
+  });
+  state.loading = false;
+  $("refresh").removeAttribute("aria-busy");
+  render();
+}
+function fromCache(k) {
+  const c = store.get("cache." + k);
+  return c && Array.isArray(c.people) && c.people.length ? { people: c.people, at: new Date(c.at), source: "cache" } : null;
+}
+function fromSnapshot(k) {
+  const s = window.RANK_SNAPSHOT;
+  if (!s || !s[k]) return null;
+  try { return { people: PARSERS[k](parseCSV(s[k])), at: new Date(s.takenAt), source: "snapshot" }; } catch { return null; }
+}
+
+/* ---------- rendering ---------- */
+let model = null;
+
+function render() {
+  const mode = state.mode, cfg = MODES[mode], d = state.data[mode];
+  document.documentElement.dataset.board = mode;
+  $("mode").dataset.mode = mode;
+  for (const b of $("mode").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+  $("sum-label").textContent = cfg.summaryLabel;
+  renderStatus();
+  renderFoot();
+  if (!d) { model = null; renderEmpty(); return; }
+  model = buildModel(d.people);
+  renderSummary(); renderMe(); renderTeams(); renderClosest(); renderBoard();
+  icons();
+  state.firstPaint = false;
+}
+
+function renderStatus() {
+  const d = state.data[state.mode], err = state.errors[state.mode];
+  const s = $("status");
+  if (state.loading && !d) s.innerHTML = "Loading the sheet…";
+  else if (d) s.innerHTML = `Updated <b>${timeText(d.at)}</b><br>${agoText(d.at)}${d.source === "live" ? ", refreshes every minute" : ""}`;
+  else s.textContent = "No data yet";
+  const n = $("notice");
+  if (err && d) {
+    const what = err instanceof ShapeError ? err.message : "Couldn't reach the sheet.";
+    const since = d.source === "snapshot"
+      ? `Showing a saved copy from ${d.at.toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}.`
+      : `Showing the last good data from ${timeText(d.at)}.`;
+    n.innerHTML = `<i data-lucide="triangle-alert" class="icon" aria-hidden="true"></i><span>${esc(what)} ${since}</span><button type="button" class="btn" id="retry">Try again</button>`;
+    n.hidden = false;
+    $("retry").onclick = load;
+  } else n.hidden = true;
+}
+
+function renderFoot() {
+  const t = MODES[state.mode].money
+    ? `Target: ${moneyFull(CONFIG.deposit.target)} per person for the year so far (₦5,000,000 a month, January to September).`
+    : `Target: ${CONFIG.referral.target} referrals per person.`;
+  $("foot").textContent = `${t} Numbers come straight from the Deposit Drive and Referrals sheets and refresh every ${CONFIG.refreshSeconds} seconds.`;
+}
+
+function renderEmpty() {
+  const err = state.errors[state.mode];
+  const msg = err
+    ? `<h3>Couldn't load ${MODES[state.mode].label}</h3><p>${esc(err instanceof ShapeError ? err.message : "The sheet didn't respond. Check that it's still published to the web, then try again.")}</p><button type="button" class="btn more" id="retry2">Try again</button>`
+    : `<h3>Loading ${MODES[state.mode].label}</h3><p>Pulling the latest numbers from the sheet.</p>`;
+  $("total").innerHTML = `<span class="sk" style="height:64px;width:60%"></span>`; $("total")._v = 0;
+  $("of").innerHTML = ""; $("total-bar").innerHTML = ""; $("total-labels").innerHTML = ""; $("facts").innerHTML = "";
+  const sk = n => Array.from({ length: n }, () => `<li class="row"><span class="sk" style="width:18px"></span><span class="sk" style="width:60%"></span><span class="sk"></span><span class="sk"></span></li>`).join("");
+  $("board").innerHTML = err ? `<li class="empty-state">${msg}</li>` : sk(6);
+  $("teams").innerHTML = err ? "" : sk(4);
+  $("closest").innerHTML = ""; $("closest-note").textContent = ""; $("board-sub").textContent = "";
+  $("more").hidden = true; $("me").innerHTML = "";
+  if ($("retry2")) $("retry2").onclick = load;
+}
+
+function renderSummary() {
+  const mode = state.mode, cfg = MODES[mode], m = model;
+  const tEl = $("total");
+  if (tEl.querySelector(".sk")) tEl.textContent = "";
+  countTo(tEl, m.total, v => cfg.money ? moneyShort(v) : nf0.format(Math.round(v)));
+  $("of").innerHTML = `of <b>${fmt(mode, m.target)}</b>${unit(mode, m.target)} target, <span class="pct">${pctText(m.pct)}</span> there`;
+  const bar = $("total-bar");
+  bar.outerHTML = segHTML(m.pct, cfg.segments, "lg", "total-bar");
+  const lab = $("total-labels");
+  lab.style.gridTemplateColumns = `repeat(${cfg.segments}, 1fr)`;
+  lab.innerHTML = cfg.segLabels.map(s => `<span>${s}</span>`).join("");
+  const top = m.people[0];
+  const topTeam = sortedTeams(m, "pct")[0];
+  $("facts").innerHTML = `
+    <div><dt>On or above target</dt><dd>${m.onTarget} of ${m.people.length}<small>${m.notStarted} yet to log a ${cfg.money ? "deposit" : "referral"}</small></dd></div>
+    <div><dt>Top performer</dt><dd>${top && top.value > 0 ? esc(top.name) + `<small>${fmt(mode, top.value)}${unit(mode, top.value)}, ${pctText(top.pct)}</small>` : "No one yet"}</dd></div>
+    <div><dt>Top team</dt><dd>${topTeam && topTeam.total > 0 ? esc(topTeam.name) + `<small>${pctText(topTeam.pct)} of team target</small>` : "No team yet"}</dd></div>`;
+  playBars($("total-bar").parentElement);
+}
+
+function personRow(p, mode, opts = {}) {
+  const me = state.me && keyOf(p.name) === state.me ? " is-me" : "";
+  const rank = opts.teamRank ? p.teamRank : p.rank;
+  const meta = opts.teamRank ? `${ordinal(p.rank)} overall` : esc(p.team);
+  return `<li class="row${me}">
+    <span class="rank${rank <= 3 && p.value > 0 ? " podium" : ""}">${rank}</span>
+    <span class="who"><b>${esc(p.name)}</b><small>${meta} ${chipHTML(p.pct)}</small></span>
+    ${segHTML(p.pct, MODES[mode].segments, "sm")}
+    <span class="num"><b>${fmt(mode, p.value)}</b><small>${pctText(p.pct)}</small></span>
+  </li>`;
+}
+
+function renderBoard() {
+  const mode = state.mode, list = model.people;
+  const shown = state.showAll ? list : list.slice(0, BOARD_PREVIEW);
+  $("board").innerHTML = shown.map(p => personRow(p, mode)).join("");
+  $("board-sub").textContent = `Everyone, ranked by ${MODES[mode].money ? "deposits" : "referrals"} this year. ${list.length} people.`;
+  const more = $("more");
+  more.hidden = list.length <= BOARD_PREVIEW;
+  more.textContent = state.showAll ? "Show top " + BOARD_PREVIEW : `Show all ${list.length}`;
+  playBars($("board"));
+}
+
+function renderTeams() {
+  const mode = state.mode, teams = sortedTeams(model, state.teamSort);
+  for (const b of document.querySelectorAll(".sort button")) b.setAttribute("aria-pressed", String(b.dataset.sort === state.teamSort));
+  $("teams").innerHTML = teams.map((t, i) => `<li><button type="button" class="row team-row" data-team="${esc(t.name)}" aria-label="Open ${esc(t.name)}">
+      <span class="rank${i < 3 && t.total > 0 ? " podium" : ""}">${i + 1}</span>
+      <span class="who"><b>${esc(t.name)}</b><small>${t.members.length} ${t.members.length === 1 ? "person" : "people"}, avg ${fmt(mode, t.avg)} each</small></span>
+      ${segHTML(t.pct, MODES[mode].segments, "sm")}
+      <span class="num"><b>${pctText(t.pct)}</b><small>${fmt(mode, t.total)}</small></span>
+      <i data-lucide="chevron-right" class="icon chev" aria-hidden="true"></i>
+    </button></li>`).join("");
+  $("teams-sub").textContent = `${teams.length} teams, ranked by ${state.teamSort === "pct" ? "% of team target" : "total"}. Tap one to see its people.`;
+  playBars($("teams"));
+}
+
+function renderClosest() {
+  const mode = state.mode;
+  const near = model.people.filter(p => p.value > 0 && p.pct < 1).sort((a, b) => b.pct - a.pct).slice(0, 5);
+  $("closest").innerHTML = near.length ? near.map(p => `<li class="row">
+      <span class="who"><b>${esc(p.name)}</b><small>${esc(p.team)}</small></span>
+      <span class="num"><b>${pctText(p.pct)}</b><span class="gap">${fmt(mode, p.target - p.value)}${unit(mode, p.target - p.value)} to go</span></span>
+    </li>`).join("") : `<li class="empty-state"><p>No one is part of the way there yet.</p></li>`;
+  const hit = model.onTarget;
+  $("closest-note").textContent = hit
+    ? `${hit} ${hit === 1 ? "person has" : "people have"} already hit target.`
+    : "No one has hit target yet.";
+}
+
+/* ---------- find me ---------- */
+function matches(q) {
+  const toks = clean(q).toLowerCase().split(" ").filter(Boolean);
+  if (!toks.length || !model) return [];
+  const scored = [];
+  for (const p of model.people) {
+    const words = p.name.toLowerCase().split(" ");
+    const full = p.name.toLowerCase();
+    if (!toks.every(t => full.includes(t))) continue;
+    const score = toks.reduce((s, t) => s + (words.some(w => w.startsWith(t)) ? 2 : 1), 0);
+    scored.push([score, p]);
+  }
+  return scored.sort((a, b) => b[0] - a[0] || a[1].name.localeCompare(b[1].name)).slice(0, 6).map(x => x[1]);
+}
+let active = -1, current = [];
+function showSuggest(list) {
+  const ul = $("suggest"), q = $("q");
+  current = list; active = list.length ? 0 : -1;
+  if (!clean(q.value)) { ul.hidden = true; q.setAttribute("aria-expanded", "false"); return; }
+  ul.innerHTML = list.length
+    ? list.map((p, i) => `<li role="option" id="opt-${i}" data-i="${i}" aria-selected="${i === active}"><span>${esc(p.name)}</span><small>${esc(p.team)}</small></li>`).join("")
+    : `<li class="none" role="option" aria-disabled="true">No one by that name on this board</li>`;
+  ul.hidden = false; q.setAttribute("aria-expanded", "true");
+  q.setAttribute("aria-activedescendant", list.length ? "opt-0" : "");
+}
+function moveActive(d) {
+  if (!current.length) return;
+  active = (active + d + current.length) % current.length;
+  $("suggest").querySelectorAll("li").forEach((li, i) => li.setAttribute("aria-selected", String(i === active)));
+  $("q").setAttribute("aria-activedescendant", "opt-" + active);
+}
+function choose(p) {
+  state.me = keyOf(p.name); store.set("me", state.me);
+  $("q").value = p.name; $("suggest").hidden = true; $("q").setAttribute("aria-expanded", "false");
+  renderMe(); renderBoard();
+}
+function renderMe() {
+  const box = $("me"), mode = state.mode;
+  $("clear").hidden = !($("q").value || state.me);
+  if (!state.me || !model) {
+    box.innerHTML = `<p class="find-empty">Type your name to see where you stand. We'll remember it on this phone.</p>`;
+    return;
+  }
+  const p = model.byKey.get(state.me);
+  if (!p) {
+    box.innerHTML = `<p class="find-empty">You're not on the ${MODES[mode].label} board yet. Try the other board, or check how your name is spelled in the sheet.</p>`;
+    return;
+  }
+  if (document.activeElement !== $("q")) $("q").value = p.name;
+  const team = model.teams.find(t => t.name === p.team);
+  const left = p.target - p.value;
+  const otherMode = mode === "deposit" ? "referral" : "deposit";
+  let other = "";
+  const od = state.data[otherMode];
+  if (od) {
+    const op = od.people.find(x => keyOf(x.name) === state.me);
+    if (op) other = `<p class="me-other">${MODES[otherMode].label}: <b>${fmt(otherMode, op.value)}${unit(otherMode, op.value)}</b>, ${pctText(op.target ? op.value / op.target : 0)} of target</p>`;
+  }
+  box.innerHTML = `<div class="me">
+      <div class="me-name"><h3>${esc(p.name)}</h3><p>${esc(p.team)}</p></div>
+      <div class="me-val"><b>${fmt(mode, p.value, true)}</b><span>${unit(mode, p.value).trim()} ${pctText(p.pct)} of target</span> ${chipHTML(p.pct)}</div>
+      ${segHTML(p.pct, MODES[mode].segments, "lg")}
+      <dl class="me-grid">
+        <div><dt>In your team</dt><dd>${ordinal(p.teamRank)} <small style="font:500 13px var(--f-body);color:var(--ink-2)">of ${team.members.length}</small></dd></div>
+        <div><dt>Overall</dt><dd>${ordinal(p.rank)} <small style="font:500 13px var(--f-body);color:var(--ink-2)">of ${model.people.length}</small></dd></div>
+        <div><dt>${left > 0 ? "To target" : "Over target"}</dt><dd>${fmt(mode, Math.abs(left))}</dd></div>
+      </dl>
+      ${other}
+    </div>`;
+  playBars(box);
+}
+
+/* ---------- team dialog ---------- */
+function openTeam(name) {
+  const t = model.teams.find(x => x.name === name);
+  if (!t) return;
+  const mode = state.mode, dlg = $("team-dialog");
+  const order = sortedTeams(model, state.teamSort).indexOf(t) + 1;
+  $("dlg-title").textContent = t.name;
+  $("dlg-sub").textContent = `${ordinal(order)} of ${model.teams.length} teams, ${t.members.length} ${t.members.length === 1 ? "person" : "people"}`;
+  $("dlg-stats").innerHTML = `
+    <div><dt>Total</dt><dd>${fmt(mode, t.total)}</dd></div>
+    <div><dt>Avg per person</dt><dd>${fmt(mode, t.avg)}</dd></div>
+    <div><dt>Of team target</dt><dd>${pctText(t.pct)}</dd></div>`;
+  $("dlg-bar").outerHTML = segHTML(t.pct, MODES[mode].segments, "", "dlg-bar");
+  $("dlg-list").innerHTML = t.members.map(p => personRow(p, mode, { teamRank: true })).join("");
+  if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+  dlg.querySelector(".dlg-body").scrollTop = 0;
+  playBars(dlg);
+}
+
+/* ---------- events ---------- */
+function setMode(m) {
+  if (!MODES[m] || m === state.mode) return;
+  state.mode = m; state.showAll = false; store.set("mode", m);
+  history.replaceState(null, "", m === "referral" ? "#referrals" : "#deposits");
+  render();
+}
+$("mode").addEventListener("click", e => { const b = e.target.closest("button[data-mode]"); if (b) setMode(b.dataset.mode); });
+$("refresh").addEventListener("click", load);
+$("more").addEventListener("click", () => { state.showAll = !state.showAll; renderBoard(); if (!state.showAll) $("board-title").scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" }); });
+document.querySelector(".sort").addEventListener("click", e => { const b = e.target.closest("button[data-sort]"); if (b && model) { state.teamSort = b.dataset.sort; renderTeams(); icons(); } });
+$("teams").addEventListener("click", e => { const b = e.target.closest("[data-team]"); if (b && model) openTeam(b.dataset.team); });
+$("dlg-close").addEventListener("click", () => $("team-dialog").close());
+$("team-dialog").addEventListener("click", e => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+
+const q = $("q");
+q.addEventListener("input", () => { $("clear").hidden = !q.value; showSuggest(matches(q.value)); });
+q.addEventListener("focus", () => { if (q.value) showSuggest(matches(q.value)); });
+q.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); moveActive(1); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); moveActive(-1); }
+  else if (e.key === "Enter") { e.preventDefault(); if (current[active]) choose(current[active]); }
+  else if (e.key === "Escape") { $("suggest").hidden = true; q.setAttribute("aria-expanded", "false"); }
+});
+q.addEventListener("blur", () => setTimeout(() => { $("suggest").hidden = true; q.setAttribute("aria-expanded", "false"); }, 150));
+$("suggest").addEventListener("mousedown", e => e.preventDefault());
+$("suggest").addEventListener("click", e => { const li = e.target.closest("li[data-i]"); if (li) choose(current[+li.dataset.i]); });
+$("clear").addEventListener("click", () => { q.value = ""; state.me = null; store.del("me"); $("suggest").hidden = true; renderMe(); if (model) renderBoard(); q.focus(); });
+
+/* ---------- refresh loop ---------- */
+let timer = null;
+function schedule() { clearInterval(timer); timer = setInterval(() => { if (!document.hidden) load(); }, CONFIG.refreshSeconds * 1000); }
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) return;
+  const d = state.data[state.mode];
+  if (!d || Date.now() - (state.lastTry?.getTime() || 0) > CONFIG.refreshSeconds * 1000) load();
+});
+setInterval(renderStatus, 15000);
+window.addEventListener("hashchange", () => { const h = location.hash.replace("#", ""); if (h === "referrals") setMode("referral"); else if (h === "deposits") setMode("deposit"); });
+
+/* expose for tests */
+window.__rank = { parseCSV, parseDeposit, parseReferral, buildModel, num, state, load };
+
+/* ---------- boot: show cached numbers instantly, then go live ---------- */
+for (const k of ["deposit", "referral"]) state.data[k] = fromCache(k);
+render();
+icons();
+load();
+schedule();
+})();
+</script>
