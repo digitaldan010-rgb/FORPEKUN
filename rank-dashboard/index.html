@@ -430,6 +430,8 @@ const CONFIG = {
   deposit:  { gid: "",  tabName: "LEADERSHIP BOARD (2)", target: 45000000 },
   referral: { gid: "", tabName: "Referral BOARD",       target: 20 },
   refreshSeconds: 60,
+  // Team for anyone the sheet leaves without one. Only used when the sheet's team cell is blank.
+  teamFixes: { "Ibrahim Abdullaih": "Compliance" },
 };
 
 (() => {
@@ -502,9 +504,11 @@ function findHeader(rows, must) {
   }
   return null;
 }
+const TEAM_FIXES = new Map(Object.entries(CONFIG.teamFixes || {}).map(([n, t]) => [keyOf(n), t]));
 function addPerson(map, p) {
   const k = keyOf(p.name);
   if (!k) return;
+  if (p.team === "Unassigned" && TEAM_FIXES.has(k)) p.team = TEAM_FIXES.get(k);
   const prev = map.get(k);
   if (!prev) map.set(k, p);
   else if (p.value > prev.value) map.set(k, { ...p, team: prev.team === "Unassigned" ? p.team : prev.team });
