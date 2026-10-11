@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Town Hall Meeting RSVP · Rank</title>
+<meta name="description" content="Let us know if you're coming to the Rank town hall meeting.">
+<meta name="theme-color" content="#240701">
+<link rel="icon" href="assets/logo-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #240701;
+    --bg-2: #3A1106;
+    --line: #5A2A1A;
+    --cream: #FBEFDF;
+    --muted: #D9C6B8;
+    --faint: #A88B7D;
+    --orange: #FF6A00;
+    --orange-soft: #FF8A3D;
+    --danger: #FF9A85;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    background-image: radial-gradient(circle at 85% 15%, #4A1607 0%, var(--bg) 55%);
+    color: var(--cream);
+    font-family: 'DM Sans', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  [hidden] { display: none !important; }
+
+  /* Top bar */
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; background: rgba(251,239,223,0.08); z-index: 10; }
+  .progress span { display: block; height: 100%; width: 0; background: var(--orange); transition: width .4s ease; }
+  .topbar { position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 28px 40px; z-index: 5; }
+  .topbar img { height: 32px; }
+  .topbar .tag { font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--faint); }
+
+  /* Screens */
+  .stage { position: relative; height: 100%; }
+  .screen {
+    position: absolute; inset: 0; display: flex; align-items: center; padding: 120px 40px 120px;
+    opacity: 0; pointer-events: none; transform: translateY(40px);
+    transition: opacity .45s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .screen.active { opacity: 1; pointer-events: auto; transform: none; }
+  .screen.above { transform: translateY(-40px); }
+  .inner { width: 100%; max-width: 760px; margin: 0 auto; }
+
+  .art { position: absolute; right: 5vw; top: 50%; transform: translateY(-50%); width: min(28vw, 420px); pointer-events: none; }
+  .art.small { width: min(24vw, 300px); }
+
+  .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 18px; }
+  h1 { font-family: 'Inter Tight', Arial, sans-serif; font-weight: 800; font-size: clamp(44px, 5.4vw, 84px); line-height: .95; letter-spacing: -0.04em; }
+  .lede { font-size: clamp(18px, 2vw, 22px); color: var(--muted); line-height: 1.5; margin-top: 22px; max-width: 520px; }
+
+  .q-num { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--orange); margin-bottom: 14px; }
+  .q-num svg { width: 16px; height: 16px; }
+  h2 { font-family: 'Inter Tight', Arial, sans-serif; font-weight: 700; font-size: clamp(30px, 4vw, 46px); line-height: 1.1; letter-spacing: -0.03em; }
+  .help { font-size: 18px; color: var(--faint); margin-top: 10px; }
+
+  .text {
+    display: block; width: 100%; margin-top: 36px; padding: 10px 0 14px;
+    background: transparent; border: none; border-bottom: 2px solid var(--line);
+    color: var(--cream); font: 500 clamp(24px, 3vw, 32px)/1.3 'DM Sans', Arial, sans-serif;
+    outline: none; transition: border-color .2s;
+  }
+  .text::placeholder { color: #6B4A3C; }
+  .text:focus { border-bottom-color: var(--orange); }
+
+  .choices { display: grid; gap: 12px; margin-top: 36px; max-width: 420px; }
+  .choice {
+    display: flex; align-items: center; gap: 16px; width: 100%; text-align: left;
+    padding: 16px 18px; border-radius: 16px; background: rgba(251,239,223,0.04);
+    border: 2px solid var(--line); font-size: 22px; font-weight: 500;
+    transition: border-color .15s, background .15s, transform .1s;
+  }
+  .choice:hover { border-color: var(--orange-soft); background: rgba(255,106,0,0.08); }
+  .choice:active { transform: scale(.99); }
+  .choice .key {
+    flex: none; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center;
+    font-size: 15px; font-weight: 700; border: 1.5px solid var(--faint); color: var(--muted);
+  }
+  .choice .tick { margin-left: auto; opacity: 0; color: var(--bg); }
+  .choice[aria-checked="true"] { border-color: var(--orange); background: var(--orange); color: var(--bg); }
+  .choice[aria-checked="true"] .key { border-color: var(--bg); color: var(--bg); background: rgba(36,7,1,0.12); }
+  .choice[aria-checked="true"] .tick { opacity: 1; }
+  .choice.blink { animation: blink .28s ease 2; }
+  @keyframes blink { 50% { background: rgba(255,106,0,0.55); } }
+
+  .actions { display: flex; align-items: center; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; border: none; border-radius: 999px;
+    background: var(--orange); color: var(--bg); padding: 16px 28px;
+    font-family: 'Inter Tight', Arial, sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.01em;
+    transition: transform .1s, background .15s;
+  }
+  .btn:hover { background: var(--orange-soft); }
+  .btn:active { transform: scale(.98); }
+  .btn[disabled] { opacity: .6; cursor: progress; }
+  .btn svg { width: 18px; height: 18px; }
+  .hint { font-size: 15px; color: var(--faint); }
+  .hint b { color: var(--muted); font-weight: 700; }
+
+  .error { display: none; align-items: center; gap: 8px; margin-top: 18px; padding: 10px 14px; border-radius: 10px; background: rgba(255,154,133,0.12); color: var(--danger); font-size: 16px; font-weight: 500; width: fit-content; }
+  .error.show { display: inline-flex; }
+
+  /* Nav */
+  .nav { position: fixed; right: 40px; bottom: 32px; display: flex; gap: 2px; z-index: 5; }
+  .nav button { width: 44px; height: 40px; border: none; background: var(--orange); color: var(--bg); display: grid; place-items: center; }
+  .nav button:first-child { border-radius: 10px 0 0 10px; }
+  .nav button:last-child { border-radius: 0 10px 10px 0; }
+  .nav button[disabled] { opacity: .35; cursor: default; }
+  .nav svg { width: 18px; height: 18px; }
+  .nav.hidden { display: none; }
+  .foot { position: fixed; left: 40px; bottom: 36px; font-size: 14px; color: var(--faint); z-index: 5; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  @media (max-width: 860px) {
+    .art { position: static; transform: none; width: 180px; margin-bottom: 18px; }
+    .art.small { width: 140px; }
+    .screen { align-items: flex-start; padding: 100px 24px 110px; overflow-y: auto; }
+    .topbar { padding: 22px 24px; }
+    .nav { right: 24px; bottom: 24px; }
+    .foot { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .screen, .progress span { transition: none; }
+    .choice.blink { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<header class="topbar">
+  <img src="assets/logo-white.png" alt="Rank">
+  <span class="tag">Town Hall RSVP</span>
+</header>
+
+<form id="form" class="stage" novalidate autocomplete="on">
+  <!-- Honeypot: real people never see or fill this -->
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+  <!-- Welcome -->
+  <section class="screen active" data-step="welcome">
+    <div class="inner">
+      <img class="art" src="assets/flowers.webp" alt="">
+      <p class="eyebrow">Rank · Town Hall Meeting</p>
+      <h1>Are you<br>coming through?</h1>
+      <p class="lede">Confirm your spot for the town hall so we can plan for you. It takes less than a minute.</p>
+      <div class="actions">
+        <button type="button" class="btn" data-next>Let's go
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <span class="hint">press <b>Enter ↵</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Name -->
+  <section class="screen" data-step="name" data-q="1">
+    <div class="inner">
+      <p class="q-num">1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+      <h2><label for="name">What's your name?</label></h2>
+      <input class="text" id="name" name="name" type="text" placeholder="Type your full name" autocomplete="name" maxlength="120" required>
+      <p class="error" role="alert">Please tell us your name</p>
+      <div class="actions">
+        <button type="button" class="btn" data-next>OK
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>
+        </button>
+        <span class="hint">press <b>Enter ↵</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Department -->
+  <section class="screen" data-step="department" data-q="2">
+    <div class="inner">
+      <p class="q-num">2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+      <h2><label for="department">What department are you in?</label></h2>
+      <input class="text" id="department" name="department" type="text" placeholder="e.g. Marketing" autocomplete="organization-title" maxlength="120" required>
+      <p class="error" role="alert">Please tell us your department</p>
+      <div class="actions">
+        <button type="button" class="btn" data-next>OK
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>
+        </button>
+        <span class="hint">press <b>Enter ↵</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Attending -->
+  <section class="screen" data-step="attending" data-q="3">
+    <div class="inner">
+      <p class="q-num">3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+      <h2 id="attending-label">Should we plan for you?</h2>
+      <p class="help">Let us know if you'll be at the town hall.</p>
+      <div class="choices" role="radiogroup" aria-labelledby="attending-label" data-field="attending">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-value="Yes"><span class="key">A</span>Yes, I'll be there<svg class="tick" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-value="No"><span class="key">B</span>No, I can't make it<svg class="tick" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></button>
+      </div>
+      <input type="hidden" name="attending" id="attending">
+      <p class="error" role="alert">Please pick an option</p>
+      <div class="actions" data-submit-actions hidden>
+        <button type="submit" class="btn">Submit</button>
+        <span class="hint">press <b>Enter ↵</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Food (only if attending) -->
+  <section class="screen" data-step="food" data-q="4">
+    <div class="inner">
+      <p class="q-num">4 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+      <h2 id="food-label">Rice or Swallow?</h2>
+      <p class="help">Pick what you'd like to eat on the day.</p>
+      <div class="choices" role="radiogroup" aria-labelledby="food-label" data-field="food">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-value="Rice"><span class="key">A</span>Rice<svg class="tick" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-value="Swallow"><span class="key">B</span>Swallow<svg class="tick" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></button>
+      </div>
+      <input type="hidden" name="food" id="food">
+      <p class="error" role="alert">Please pick an option</p>
+      <div class="actions" data-submit-actions hidden>
+        <button type="submit" class="btn">Submit</button>
+        <span class="hint">press <b>Enter ↵</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Done -->
+  <section class="screen" data-step="done">
+    <div class="inner">
+      <img class="art small" src="assets/bell.webp" alt="">
+      <p class="eyebrow">RSVP received</p>
+      <h1 id="done-title">You're in.</h1>
+      <p class="lede" id="done-text">Thanks for letting us know. See you at the town hall.</p>
+    </div>
+  </section>
+</form>
+
+<nav class="nav" id="nav" aria-label="Question navigation">
+  <button type="button" id="prev" aria-label="Previous question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></button>
+  <button type="button" id="next" aria-label="Next question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+</nav>
+<p class="foot">Rank · Town Hall Meeting RSVP</p>
+
+<script>
+  // Paste your Google Apps Script web app URL here (see README.md).
+  const SCRIPT_URL = '';
+
+  const form = document.getElementById('form');
+  const screens = [...form.querySelectorAll('.screen')];
+  const bar = document.getElementById('bar');
+  const nav = document.getElementById('nav');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const $f = id => document.getElementById(id);
+  const byStep = Object.fromEntries(screens.map(s => [s.dataset.step, s]));
+  let current = 'welcome';
+  let sending = false;
+
+  // The question order depends on the answer to "Should we plan for you?"
+  function flow() {
+    const steps = ['welcome', 'name', 'department', 'attending'];
+    if ($f('attending').value !== 'No') steps.push('food');
+    return steps;
+  }
+  const lastQuestion = () => flow().at(-1);
+
+  function show(step) {
+    const order = flow().concat('done');
+    const from = order.indexOf(current), to = order.indexOf(step);
+    screens.forEach(s => s.classList.remove('active', 'above'));
+    if (byStep[current] && from < to) byStep[current].classList.add('above');
+    byStep[step].classList.add('active');
+    current = step;
+
+    // Show "Submit" only on whichever question is last
+    form.querySelectorAll('[data-submit-actions]').forEach(a => {
+      a.hidden = !(a.closest('.screen').dataset.step === lastQuestion() && step === lastQuestion());
+    });
+
+    const qs = flow().slice(1);
+    const answered = step === 'done' ? qs.length : Math.max(0, qs.indexOf(step));
+    bar.style.width = (answered / qs.length * 100) + '%';
+    nav.classList.toggle('hidden', step === 'welcome' || step === 'done');
+    prevBtn.disabled = step === 'name';
+    nextBtn.disabled = step === lastQuestion();
+
+    const input = byStep[step].querySelector('.text');
+    if (input) setTimeout(() => input.focus({ preventScroll: true }), 350);
+    else if (byStep[step].querySelector('.choice')) setTimeout(() => (byStep[step].querySelector('.choice[aria-checked="true"]') || byStep[step].querySelector('.choice')).focus({ preventScroll: true }), 350);
+  }
+
+  function setError(step, on) {
+    const err = byStep[step]?.querySelector('.error');
+    if (err) err.classList.toggle('show', on);
+  }
+
+  function valid(step) {
+    if (step === 'welcome') return true;
+    const ok = ($f(step)?.value || '').trim().length > 0;
+    setError(step, !ok);
+    return ok;
+  }
+
+  function next() {
+    if (current === 'done' || !valid(current)) return;
+    if (current === lastQuestion()) return submit();
+    const order = flow();
+    show(order[order.indexOf(current) + 1]);
+  }
+
+  function prev() {
+    const order = flow();
+    const i = order.indexOf(current);
+    if (i > 1) show(order[i - 1]);
+  }
+
+  // Choice buttons: click or press A / B
+  form.querySelectorAll('.choices').forEach(group => {
+    const field = group.dataset.field;
+    group.querySelectorAll('.choice').forEach(btn => {
+      btn.addEventListener('click', () => pick(field, btn));
+    });
+  });
+
+  function pick(field, btn) {
+    const group = btn.closest('.choices');
+    group.querySelectorAll('.choice').forEach(b => b.setAttribute('aria-checked', b === btn ? 'true' : 'false'));
+    $f(field).value = btn.dataset.value;
+    if (field === 'attending' && btn.dataset.value === 'No') $f('food').value = '';
+    setError(field, false);
+    btn.classList.remove('blink'); void btn.offsetWidth; btn.classList.add('blink');
+    show(current); // refresh flow-dependent UI (submit button, progress)
+    if (current !== lastQuestion()) setTimeout(next, 450);
+  }
+
+  document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', next));
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  document.addEventListener('keydown', e => {
+    if (current === 'done' || sending) return;
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); next(); return; }
+    const group = byStep[current].querySelector('.choices');
+    if (group && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const idx = { a: 0, b: 1 }[e.key.toLowerCase()];
+      const btns = group.querySelectorAll('.choice');
+      if (idx !== undefined && btns[idx]) { e.preventDefault(); pick(group.dataset.field, btns[idx]); }
+    }
+  });
+
+  form.addEventListener('submit', e => { e.preventDefault(); next(); });
+
+  async function submit() {
+    if (sending) return;
+    const screen = byStep[current];
+    const btn = screen.querySelector('[data-submit-actions] .btn');
+    const err = screen.querySelector('.error');
+
+    if (!SCRIPT_URL) {
+      err.textContent = "This form isn't connected to the sheet yet.";
+      err.classList.add('show');
+      return;
+    }
+
+    sending = true;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const data = new URLSearchParams({
+      name: $f('name').value.trim(),
+      department: $f('department').value.trim(),
+      attending: $f('attending').value,
+      food: $f('attending').value === 'Yes' ? $f('food').value : '',
+      website: $f('website').value
+    });
+
+    try {
+      // Apps Script doesn't send CORS headers, so the response is opaque.
+      // A network failure still throws, which is what we catch below.
+      await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data });
+      const first = $f('name').value.trim().split(/\s+/)[0];
+      if ($f('attending').value === 'Yes') {
+        document.getElementById('done-title').textContent = `You're in, ${first}.`;
+        document.getElementById('done-text').textContent = `We've got you down for ${$f('food').value.toLowerCase()}. See you at the town hall.`;
+      } else {
+        document.getElementById('done-title').textContent = `Thanks, ${first}.`;
+        document.getElementById('done-text').textContent = "We'll miss you at this one. Thanks for letting us know.";
+      }
+      show('done');
+    } catch {
+      err.textContent = "Couldn't send. Check your connection and try again.";
+      err.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Submit';
+    } finally {
+      sending = false;
+    }
+  }
+
+  show('welcome');
+</script>
+</body>
+</html>
