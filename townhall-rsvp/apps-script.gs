@@ -1,8 +1,11 @@
 /**
  * Town Hall Meeting RSVP: receives form submissions and adds a row to this sheet.
  * Paste this into Extensions → Apps Script in the RSVP Google Sheet, then deploy
- * it as a web app (see README.md).
+ * it as a web app (see README.md). It writes to the sheet in SHEET_ID below.
  */
+
+// The RSVP sheet: https://docs.google.com/spreadsheets/d/1GpieMVaCbJ3-AH-_kw8WIOoHy4SMs4Kv08e-emvi774/edit
+const SHEET_ID = '1GpieMVaCbJ3-AH-_kw8WIOoHy4SMs4Kv08e-emvi774';
 
 // Name of the tab to write to. Leave blank to use the first tab.
 const SHEET_NAME = '';
@@ -18,7 +21,7 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = SpreadsheetApp.openById(SHEET_ID);
     const sheet = SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
 
     if (sheet.getLastRow() === 0) {

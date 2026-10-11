@@ -14,9 +14,9 @@ The site is this folder: `index.html` plus the `assets/` images.
 
 ## 1. Connect the Google Sheet (one time, about 5 minutes)
 
-A published ("Publish to web") sheet is read-only, so the form can't write to it directly. A small script inside the sheet receives each answer and adds the row.
+A small script inside the sheet receives each answer and adds the row. `apps-script.gs` is already set to this sheet's ID.
 
-1. Open the RSVP sheet in Google Sheets (the normal edit view, not the published link).
+1. Open the RSVP sheet: https://docs.google.com/spreadsheets/d/1GpieMVaCbJ3-AH-_kw8WIOoHy4SMs4Kv08e-emvi774/edit (you need edit access).
 2. Go to **Extensions → Apps Script**.
 3. Delete anything in the editor, paste in everything from `apps-script.gs`, and click **Save**.
 4. Click **Deploy → New deployment**. Click the gear icon next to "Select type" and choose **Web app**.
