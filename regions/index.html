@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Regions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #036C4F;
+  --card: #85E1BB;
+  --badge: #000000;
+  --on-badge: #FFFFFF;
+  --ink: #000000;
+  --title: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 32px;
+}
+h1 {
+  color: var(--title);
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 0 0 36px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 21px;
+  list-style: none;
+  padding: 0;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 16px 20px;
+  background: var(--card);
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform .15s ease, filter .15s ease;
+}
+.card:hover { transform: translateY(-2px); filter: brightness(1.04); }
+.card:focus-visible { outline: 3px solid var(--title); outline-offset: 3px; }
+.badge {
+  display: grid;
+  place-items: center;
+  width: 137px;
+  max-width: 100%;
+  height: 63px;
+  background: var(--badge);
+  color: var(--on-badge);
+  border-radius: 6px;
+  font-size: 20px;
+}
+.name { font-size: 20px; letter-spacing: -0.01em; text-align: center; line-height: 1.1; }
+
+@media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) {
+  body { padding: 24px 16px; }
+  h1 { font-size: 30px; margin-bottom: 24px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .badge { width: 110px; height: 52px; font-size: 18px; }
+  .name { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<h1>ALL REGIONS</h1>
+<ul class="grid">
+  <li><a class="card" href="#abuja"><span class="badge">AB</span><span class="name">ABUJA</span></a></li>
+  <li><a class="card" href="#ibadan"><span class="badge">IB</span><span class="name">IBADAN</span></a></li>
+  <li><a class="card" href="#kano-kaduna"><span class="badge">KN/KD</span><span class="name">KANO / KADUNA</span></a></li>
+  <li><a class="card" href="#lagos"><span class="badge">LA</span><span class="name">LAGOS</span></a></li>
+  <li><a class="card" href="#onitsha"><span class="badge">ON</span><span class="name">ONITSHA</span></a></li>
+  <li><a class="card" href="#port-harcourt"><span class="badge">PH</span><span class="name">PORT HARCOURT</span></a></li>
+</ul>
+</body>
+</html>
