@@ -38,3 +38,11 @@ The source lives in `src/app.html`. After changing it, rebuild with:
 ```
 python3 src/build.py --deposit-gid N --referral-gid N
 ```
+
+# Infinix Raffle (`regions/`)
+
+Pick a region, hit **SPIN**, and the reel rolls to the winner's IMEI before the winner card pops up with confetti.
+
+- Add the real tickets to `regions/entries.js`. The file holds sample entries until you replace them.
+- Each ticket can only win once. This is remembered per browser, so clear the site data to start a fresh draw.
+- To put it online, drag the `regions` folder onto https://app.netlify.com/drop.

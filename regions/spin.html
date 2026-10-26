@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinix Raffle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap">
+<style>
+:root {
+  --grad-from: #77DBB2;
+  --grad-to: #026043;
+  --bar: #003C2E;
+  --btn: #004233;
+  --strip: #75DDB2;
+  --ink: #000000;
+  --modal: #000000;
+  --on-modal: #FFFFFF;
+  --link: #287BFF;
+  --loader-bg: #FDFDFD;
+  --loader-dot: #E4F3EC;
+  --digit-h: 60px;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { height: 100%; }
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--grad-from) 0%, var(--grad-to) 100%) fixed;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+}
+
+/* Loading screen */
+.loader {
+  position: fixed; inset: 0; z-index: 50;
+  background: var(--loader-bg);
+  display: grid; place-items: center;
+  transition: opacity .35s ease;
+}
+.loader span {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--loader-dot);
+  animation: pulse 1s ease-in-out infinite;
+}
+.loader.done { opacity: 0; pointer-events: none; }
+@keyframes pulse { 50% { transform: scale(1.25); opacity: .6; } }
+
+header { padding-top: 34px; text-align: center; }
+.logo { font-size: 26px; font-weight: 500; letter-spacing: .02em; }
+
+main {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  padding: 140px 16px 40px;
+}
+.bar {
+  position: relative;
+  width: 732px; max-width: calc(100vw - 152px);
+  height: 111px;
+  background: var(--bar);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.bar::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 48px; transform: translateY(-50%);
+  background: var(--strip);
+  opacity: 0; transition: opacity .2s ease;
+}
+.bar.on::before { opacity: 1; }
+.reels { position: relative; display: flex; gap: 6px; }
+.reel { width: 50px; height: var(--digit-h); overflow: hidden; }
+.reel div { will-change: transform; }
+.reel b {
+  display: block; height: var(--digit-h);
+  font-size: 50px; font-weight: 800; line-height: var(--digit-h);
+  text-align: center;
+}
+.msg { position: relative; color: var(--strip); font-size: 18px; }
+
+.spin {
+  flex: none;
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 0; background: var(--btn); color: #fff;
+  font: 700 17px/1 "Inter", sans-serif;
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+.spin:hover { filter: brightness(1.25); }
+.spin:active { transform: scale(.96); }
+.spin:disabled { cursor: default; filter: none; transform: none; }
+
+.back {
+  position: fixed; left: 16px; top: 16px;
+  color: var(--ink); font-size: 14px; text-decoration: none; opacity: .65;
+}
+.back:hover { opacity: 1; }
+
+/* Winner popup */
+.overlay {
+  position: fixed; inset: 0; z-index: 20;
+  background: rgba(0, 0, 0, .5);
+  display: none; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.overlay.open { display: flex; }
+.modal {
+  position: relative;
+  width: 480px; max-width: 100%;
+  max-height: calc(100vh - 32px); overflow-y: auto;
+  background: var(--modal); color: var(--on-modal);
+  border-radius: 6px;
+  padding: 72px 24px 32px;
+  text-align: center;
+  font-size: 24px; line-height: 1.25;
+  animation: pop .3s ease-out;
+}
+@keyframes pop { from { transform: scale(.9); opacity: 0; } }
+.close {
+  position: absolute; top: 12px; right: 14px;
+  width: 32px; height: 32px; border: 0; background: none;
+  color: var(--on-modal); font-size: 28px; line-height: 1; font-weight: 300;
+  cursor: pointer; opacity: .8;
+}
+.close:hover { opacity: 1; }
+.ticket a { display: block; color: var(--link); text-decoration: none; }
+.trophy { font-size: 104px; line-height: 1; margin: 18px 0 30px; }
+.modal h2 { font-size: 24px; font-weight: 800; margin-bottom: 20px; }
+.modal p + p { margin-top: 30px; }
+.modal p { overflow-wrap: anywhere; }
+
+@media (max-width: 640px) {
+  :root { --digit-h: 40px; }
+  main { padding-top: 90px; gap: 12px; }
+  .bar { height: 84px; max-width: calc(100vw - 108px); }
+  .bar::before { height: 34px; }
+  .reels { gap: 2px; }
+  .reel { width: 24px; }
+  .reel b { font-size: 28px; }
+  .spin { width: 64px; height: 64px; font-size: 13px; }
+  .modal { font-size: 18px; padding-top: 56px; }
+  .modal h2 { font-size: 18px; }
+  .modal p + p { margin-top: 18px; }
+  .trophy { font-size: 72px; }
+}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><span></span></div>
+
+<a class="back" href="index.html">← All regions</a>
+<header>
+  <div class="logo">Infinix</div>
+</header>
+
+<main>
+  <div class="bar" id="bar"><div class="reels" id="reels"></div></div>
+  <button class="spin" id="spin" type="button">SPIN</button>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="winnerTitle">
+  <div class="modal">
+    <button class="close" id="close" type="button" aria-label="Close">×</button>
+    <div class="ticket">WINNING TICKET:<a id="wTicket"></a></div>
+    <div class="trophy" aria-hidden="true">🏆</div>
+    <h2 id="winnerTitle">WINNER</h2>
+    <p>Name: <span id="wName"></span></p>
+    <p>Address: <span id="wAddress"></span></p>
+    <p>Sales Region: <span id="wRegion"></span></p>
+    <p>Phone: <span id="wPhone"></span></p>
+    <p>Prize: <span id="wPrize"></span></p>
+    <p>IMEI: <span id="wImei"></span></p>
+  </div>
+</div>
+
+<script src="entries.js"></script>
+<script src="confetti.js"></script>
+<script>
+const DIGITS = 8;           // how many IMEI digits the reel shows
+const SPIN_MS = 2200;       // first reel stop time; later reels stop a bit after
+const STAGGER_MS = 220;
+const CONFETTI = ["#E8202A", "#FDC300", "#2BB5C6", "#2B2D8C"];
+
+const $ = id => document.getElementById(id);
+const key = new URLSearchParams(location.search).get("region") || "";
+const region = (window.REGIONS || {})[key];
+const entries = (window.ENTRIES || {})[key] || [];
+const drawnKey = "raffle-drawn-" + key;
+
+const bar = $("bar"), reels = $("reels"), spinBtn = $("spin"), overlay = $("overlay");
+let spinning = false;
+
+document.title = region ? `Infinix Raffle · ${region.name}` : "Infinix Raffle";
+
+// Show the loading screen briefly, like the original build
+setTimeout(() => $("loader").classList.add("done"), 1200);
+
+function readDrawn() {
+  try { return JSON.parse(localStorage.getItem(drawnKey)) || []; } catch { return []; }
+}
+function saveDrawn(list) {
+  try { localStorage.setItem(drawnKey, JSON.stringify(list)); } catch {}
+}
+
+function showMessage(text) {
+  bar.classList.remove("on");
+  reels.innerHTML = `<span class="msg">${text}</span>`;
+}
+
+function pickWinner() {
+  const drawn = readDrawn();
+  let pool = entries.filter(e => !drawn.includes(e.imei));
+  if (!pool.length) return null;
+  const w = pool[Math.floor(Math.random() * pool.length)];
+  saveDrawn([...drawn, w.imei]);
+  return w;
+}
+
+function buildReels(target) {
+  reels.innerHTML = "";
+  return [...target].map((d, i) => {
+    const reel = document.createElement("div");
+    reel.className = "reel";
+    const strip = document.createElement("div");
+    const count = 24 + i * 3;
+    let html = "";
+    for (let n = 0; n < count; n++) html += `<b>${Math.floor(Math.random() * 10)}</b>`;
+    strip.innerHTML = html + `<b>${d}</b>`;
+    reel.appendChild(strip);
+    reels.appendChild(reel);
+    return { strip, count };
+  });
+}
+
+function spin() {
+  if (spinning) return;
+  if (!entries.length) return showMessage("No entries for this region yet");
+  const winner = pickWinner();
+  if (!winner) return showMessage("Every ticket in this region has been drawn");
+
+  spinning = true;
+  spinBtn.disabled = true;
+  bar.classList.add("on");
+
+  const cols = buildReels(winner.imei.replace(/\D/g, "").slice(0, DIGITS).padEnd(DIGITS, "0"));
+  const h = cols[0].strip.firstChild.offsetHeight;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cols.forEach(({ strip, count }, i) => {
+      strip.style.transition = `transform ${SPIN_MS + i * STAGGER_MS}ms cubic-bezier(.12,.6,.15,1)`;
+      strip.style.transform = `translateY(-${count * h}px)`;
+    });
+  }));
+
+  setTimeout(() => showWinner(winner), SPIN_MS + (DIGITS - 1) * STAGGER_MS + 700);
+}
+
+function showWinner(w) {
+  $("wTicket").textContent = w.imei;
+  $("wName").textContent = w.name;
+  $("wAddress").textContent = w.address;
+  $("wRegion").textContent = region.name;
+  $("wPhone").textContent = w.phone;
+  $("wPrize").textContent = w.prize;
+  $("wImei").textContent = w.imei;
+  overlay.classList.add("open");
+  $("close").focus();
+  celebrate();
+  spinning = false;
+  spinBtn.disabled = false;
+}
+
+let confettiTimer;
+function celebrate() {
+  if (typeof confetti !== "function") return;
+  const end = Date.now() + 5000;
+  const opts = { colors: CONFETTI, shapes: ["square", "circle"], zIndex: 30, ticks: 320, gravity: .7, scalar: 1.1 };
+  confetti({ ...opts, particleCount: 160, spread: 110, startVelocity: 45, origin: { x: .5, y: .3 } });
+  clearInterval(confettiTimer);
+  confettiTimer = setInterval(() => {
+    if (Date.now() > end) return clearInterval(confettiTimer);
+    confetti({ ...opts, particleCount: 14, angle: 270, spread: 160, startVelocity: 12, origin: { x: Math.random(), y: -0.05 } });
+  }, 120);
+}
+
+function closeModal() {
+  overlay.classList.remove("open");
+  clearInterval(confettiTimer);
+  if (typeof confetti === "function") confetti.reset();
+  spinBtn.focus();
+}
+
+spinBtn.addEventListener("click", spin);
+$("close").addEventListener("click", closeModal);
+overlay.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("open")) closeModal(); });
+
+if (!region) showMessage("Pick a region from the home page");
+</script>
+</body>
+</html>
