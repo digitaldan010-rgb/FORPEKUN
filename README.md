@@ -38,3 +38,32 @@ The source lives in `src/app.html`. After changing it, rebuild with:
 ```
 python3 src/build.py --deposit-gid N --referral-gid N
 ```
+
+---
+
+# Rank Employee Experience Survey (H2 2026)
+
+A Typeform-style anonymous survey. Each response is saved as one row in a Google Sheet. You can open the sheet in Excel, or download it with File → Download → Microsoft Excel (.xlsx).
+
+The site is the `rank-survey/` folder. The script that writes to the sheet is `survey-setup/apps-script.gs`.
+
+## 1. Create the response sheet and connect it (one time)
+
+1. Go to https://sheets.new and name the sheet, e.g. "Rank H2 2026 Survey Responses".
+2. Click **Extensions → Apps Script**. Delete what's there, paste everything from `survey-setup/apps-script.gs`, and click **Save**.
+3. Click **Deploy → New deployment**. Click the gear icon, choose **Web app**, and set:
+   - **Execute as:** Me
+   - **Who has access:** Anyone
+4. Click **Deploy** and allow access. Google will warn that the app isn't verified, because it's your own script: click **Advanced → Go to project**.
+5. Copy the **Web app URL** (it ends in `/exec`).
+6. Open `rank-survey/index.html`, find `endpoint: ""` near the bottom, and paste the URL between the quotes.
+
+To check it's working, open the `/exec` URL in a browser. It should say the endpoint is running.
+
+## 2. Put it online
+
+Drag the `rank-survey` folder onto https://app.netlify.com/drop.
+
+## What gets saved
+
+One row per response with a Response ID, the date (no time), and one column per question. Question 8 gets one column per statement. No names, emails or device details are stored.

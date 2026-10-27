@@ -1,0 +1,664 @@
+<title>Rank Employee Survey H2 2026</title>
+<meta name="description" content="Rank H2 2026 Employee Experience Survey. Anonymous.">
+<meta name="theme-color" content="#260D02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Schibsted+Grotesk:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: one question per screen on a soft canvas, Typeform style. Header carries the Rank logo and
+   a six-segment progress bar (one segment per survey section, Rank's segmented-bar motif).
+   Same tokens as the Rank staff leaderboard. */
+:root {
+  --bg: #F2F2F2;
+  --surface: #FFFFFF;
+  --surface-2: #F6F2EF;
+  --ink: #260D02;
+  --ink-2: #6A5850;
+  --line: #DDD4CE;
+  --logo: #702D00;
+  --accent-text: #702D00;
+  --orange: #FF6A00;
+  --on-orange: #260D02;
+  --pink: #F396AC;
+  --maroon: #4E001F;
+  --night: #260D02;
+  --night-fg: #F2F2F2;
+  --night-2: #CDBBB0;
+  --pill: #260D02;
+  --on-pill: #F2F2F2;
+  --picked: #FFF1E6;
+  --track: rgba(38, 13, 2, .1);
+
+  --f-display: "Dazzed", "Schibsted Grotesk", "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 14px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --gutter: clamp(16px, 5vw, 40px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #130601; --surface: #1D0A02; --surface-2: #28120A; --ink: #F2F2F2; --ink-2: #C2B0A6; --line: #45281B;
+    --logo: #F2F2F2; --accent-text: #FF8A3D; --night: #2E1408; --night-2: #D2C0B5; --pill: #FF6A00; --on-pill: #260D02;
+    --picked: #3A1A0A; --track: rgba(242, 242, 242, .12); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #130601; --surface: #1D0A02; --surface-2: #28120A; --ink: #F2F2F2; --ink-2: #C2B0A6; --line: #45281B;
+  --logo: #F2F2F2; --accent-text: #FF8A3D; --night: #2E1408; --night-2: #D2C0B5; --pill: #FF6A00; --on-pill: #260D02;
+  --picked: #3A1A0A; --track: rgba(242, 242, 242, .12); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 17px/1.5 var(--f-body); -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--orange); color: var(--on-orange); }
+button, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 10px; }
+[tabindex="-1"]:focus { outline: none; }
+h1, h2 { font-family: var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+.icon { width: 18px; height: 18px; stroke-width: 2.2; flex: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.app { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; }
+
+/* ---------- header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px 24px;
+  padding: 14px var(--gutter); background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.logo {
+  display: block; width: 78px; height: 24px; background: var(--logo);
+  -webkit-mask: url("data:image/png;base64,%%LOGO%%") left center / contain no-repeat;
+          mask: url("data:image/png;base64,%%LOGO%%") left center / contain no-repeat;
+}
+.progress { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.progress-label { font-size: 13px; color: var(--ink-2); display: flex; justify-content: space-between; gap: 12px; }
+.progress-label b { color: var(--ink); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 5px; height: 6px; }
+.seg > span { position: relative; overflow: hidden; border-radius: 999px; background: var(--track); }
+.seg > span > i {
+  position: absolute; inset: 0; background: var(--orange); border-radius: inherit;
+  transform-origin: left center; transform: scaleX(var(--f, 0)); transition: transform 500ms var(--ease-out);
+}
+
+/* ---------- stage & screens ---------- */
+.stage { display: grid; align-items: center; padding: 24px var(--gutter) 120px; overflow-x: hidden; }
+.screen {
+  grid-area: 1 / 1; width: 100%; max-width: 720px; justify-self: center;
+  transition: opacity 260ms var(--ease-out), transform 360ms var(--ease-out);
+}
+.screen.from-below { opacity: 0; transform: translateY(32px); }
+.screen.from-above { opacity: 0; transform: translateY(-32px); }
+.screen.to-above { opacity: 0; transform: translateY(-32px); pointer-events: none; transition-duration: 180ms, 220ms; }
+.screen.to-below { opacity: 0; transform: translateY(32px); pointer-events: none; transition-duration: 180ms, 220ms; }
+
+/* welcome */
+.welcome h1 { font-size: clamp(34px, 6vw, 58px); font-weight: 900; line-height: 1.02; letter-spacing: -0.035em; }
+.welcome .lead { font-size: clamp(19px, 2.4vw, 22px); line-height: 1.45; margin: 22px 0 0; max-width: 60ch; }
+.welcome .more { color: var(--ink-2); margin: 14px 0 0; max-width: 64ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
+.facts li { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 600; }
+.facts .icon { color: var(--accent-text); width: 16px; height: 16px; }
+.resume { margin: 18px 0 0; font-size: 15px; color: var(--ink-2); }
+.resume button { border: 0; background: none; padding: 0; color: var(--accent-text); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* section intro */
+.section-intro .count { color: var(--accent-text); font-weight: 700; font-size: 16px; margin: 0 0 12px; }
+.section-intro h2 { font-size: clamp(30px, 5vw, 48px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; }
+.section-intro p.sub { color: var(--ink-2); margin: 14px 0 0; }
+
+/* question */
+.q-head { display: grid; grid-template-columns: auto 1fr; gap: 0 12px; align-items: baseline; }
+.qn { font-family: var(--f-display); font-weight: 800; font-size: 17px; color: var(--accent-text); display: inline-flex; align-items: center; gap: 4px; }
+.qn .icon { width: 15px; height: 15px; }
+.q h2 { font-size: clamp(23px, 3.4vw, 32px); font-weight: 700; line-height: 1.2; outline: none; }
+.req { color: var(--accent-text); }
+.help { grid-column: 2; color: var(--ink-2); margin: 10px 0 0; font-size: 17px; }
+.answer { margin: 28px 0 0; padding-left: calc(17px + 12px + 18px); }
+@media (max-width: 560px) { .answer { padding-left: 0; } .q-head { grid-template-columns: 1fr; } .help { grid-column: 1; } .qn { margin-bottom: 6px; } }
+
+/* choices */
+.choices { display: grid; gap: 8px; max-width: 460px; }
+.choices.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 640px; }
+@media (max-width: 560px) { .choices.two { grid-template-columns: 1fr; } }
+.opt {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 11px 14px; min-height: 50px;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 140ms var(--ease-out);
+}
+.opt:active { transform: scale(0.98); }
+@media (hover: hover) and (pointer: fine) { .opt:hover { background: var(--surface-2); } }
+.key {
+  flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px;
+  border: 1px solid var(--line); font-size: 13px; font-weight: 700; background: var(--surface);
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.opt .label { flex: 1; font-weight: 500; }
+.opt .tick { opacity: 0; color: var(--accent-text); transition: opacity 160ms ease; }
+.opt[aria-checked="true"] { background: var(--picked); border-color: var(--orange); }
+.opt[aria-checked="true"] .key { background: var(--orange); border-color: var(--orange); color: var(--on-orange); }
+.opt[aria-checked="true"] .tick { opacity: 1; }
+.opt.blink { animation: blink 360ms steps(1) 1; }
+@keyframes blink { 0%, 66% { background: var(--picked); } 33% { background: var(--surface); } }
+
+/* 1 to 5 scale */
+.scale { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; max-width: 520px; }
+.scale .opt { justify-content: center; font-family: var(--f-display); font-weight: 800; font-size: 22px; min-height: 64px; padding: 8px; }
+.scale .opt[aria-checked="true"] { background: var(--pill); color: var(--on-pill); border-color: var(--pill); }
+.anchors { display: flex; justify-content: space-between; gap: 16px; max-width: 520px; margin-top: 8px; font-size: 14px; color: var(--ink-2); }
+
+/* likert grid */
+.likert { display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+.likert-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--ink-2); margin-bottom: 4px; }
+.likert-legend b { color: var(--ink); }
+.lrow { background: var(--surface); border-radius: var(--r); padding: 14px; display: grid; gap: 10px; border: 1px solid transparent; }
+.lrow.missing { border-color: var(--pink); }
+.lrow p { margin: 0; font-weight: 600; }
+.lopts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.lopts button {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 10px; min-height: 44px; font-weight: 700;
+  transition: background-color 160ms ease, color 160ms ease, transform 140ms var(--ease-out);
+}
+.lopts button:active { transform: scale(0.96); }
+.lopts button[aria-checked="true"] { background: var(--pill); color: var(--on-pill); border-color: var(--pill); }
+
+/* text */
+.text-in {
+  display: block; width: 100%; max-width: 640px; border: 0; border-bottom: 2px solid var(--line); background: transparent;
+  font-size: clamp(20px, 2.6vw, 26px); line-height: 1.35; padding: 6px 0 10px; resize: none; overflow: hidden;
+  transition: border-color 200ms ease;
+}
+.text-in::placeholder { color: var(--ink-2); opacity: .7; }
+.text-in:focus { outline: none; border-bottom-color: var(--orange); }
+.count-hint { font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+
+/* actions */
+.actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 26px 0 0; padding-left: calc(17px + 12px + 18px); }
+.welcome .actions, .section-intro .actions, .done .actions { padding-left: 0; }
+@media (max-width: 560px) { .actions { padding-left: 0; } }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 12px; padding: 12px 22px; min-height: 48px;
+  background: var(--pill); color: var(--on-pill); font-weight: 700; font-size: 17px;
+  transition: transform 140ms var(--ease-out), opacity 200ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn[aria-busy="true"] { opacity: .7; pointer-events: none; }
+.btn[aria-busy="true"] .icon { animation: spin 700ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.enter-hint { font-size: 14px; color: var(--ink-2); }
+.enter-hint b { font-weight: 700; color: var(--ink); }
+@media (hover: none) { .enter-hint { display: none; } }
+.err {
+  display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0; padding: 8px 12px; border-radius: 10px;
+  background: var(--pink); color: var(--maroon); font-size: 15px; font-weight: 600;
+  animation: nudge 260ms var(--ease-out);
+}
+.q .err { margin-left: calc(17px + 12px + 18px); }
+@media (max-width: 560px) { .q .err { margin-left: 0; } }
+@keyframes nudge { 0% { transform: translateX(0); } 30% { transform: translateX(-4px); } 60% { transform: translateX(3px); } 100% { transform: translateX(0); } }
+
+/* done */
+.done h2 { font-size: clamp(34px, 6vw, 56px); font-weight: 900; line-height: 1.02; letter-spacing: -0.035em; }
+.done p { font-size: 19px; color: var(--ink-2); max-width: 56ch; margin: 18px 0 0; }
+.done .mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: var(--orange); color: var(--on-orange); margin-bottom: 24px; }
+.done .mark .icon { width: 30px; height: 30px; stroke-width: 2.6; }
+.note { display: block; margin-top: 18px; padding: 12px 14px; border-radius: 12px; background: var(--surface); font-size: 15px; color: var(--ink-2); max-width: 56ch; }
+
+/* bottom nav */
+.nav {
+  position: fixed; right: var(--gutter); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 10;
+  display: flex; gap: 2px; background: var(--pill); border-radius: 12px; padding: 3px;
+}
+.nav button { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--on-pill); border-radius: 9px; padding: 9px 12px; font-weight: 600; font-size: 14px; min-height: 42px; }
+.nav button:disabled { opacity: .4; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .nav button:not(:disabled):hover { background: rgba(242, 242, 242, .12); } }
+
+@media (max-width: 720px) {
+  .stage { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  .nav {
+    left: 0; right: 0; bottom: 0; border-radius: 0; justify-content: space-between;
+    padding: 8px var(--gutter) calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+  .nav button { padding-inline: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .screen, .screen.from-below, .screen.from-above, .screen.to-above, .screen.to-below { transform: none !important; }
+  .opt.blink, .err { animation: none; }
+  .seg > span > i { transition: none; }
+}
+</style>
+<!--BODY-->
+<div class="app">
+  <header class="top">
+    <span class="logo" role="img" aria-label="Rank"></span>
+    <div class="progress" id="progress" aria-hidden="true">
+      <div class="progress-label"><b id="prog-section">Employee Experience Survey</b><span id="prog-count"></span></div>
+      <div class="seg" id="prog-bar"></div>
+    </div>
+  </header>
+  <main class="stage" id="stage" aria-live="polite"></main>
+  <nav class="nav" id="nav" aria-label="Survey navigation" hidden>
+    <button type="button" id="nav-back"><i data-lucide="chevron-up" class="icon" aria-hidden="true"></i>Back</button>
+    <button type="button" id="nav-next">Next<i data-lucide="chevron-down" class="icon" aria-hidden="true"></i></button>
+  </nav>
+</div>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>
+/* =====================================================================
+   SETTINGS: paste your Google Apps Script web app URL here (ends in /exec).
+   Leave it empty to run as a preview that does not send answers.
+   ===================================================================== */
+const CONFIG = {
+  endpoint: "%%ENDPOINT%%",
+};
+
+(() => {
+"use strict";
+
+const AGREE = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"];
+const SECTIONS = [
+  { title: "General Data & Experience", qs: [
+    { type: "choice", cols: 2, text: "What department are you in?", options: ["Legal", "Compliance & Internal Control", "Public Sector", "Private Sector", "People Experience & Culture", "Finance & Operations", "Treasury & Investment", "Engineering", "Product", "Marketing & Growth", "CEO's Office"] },
+    { type: "scale", required: true, text: "How would you rate your overall experience working at Rank this half year?", low: "Very poor", high: "Excellent" },
+    { type: "text", required: true, text: "In one sentence, how would you describe your experience this half year?" },
+    { type: "text", required: true, text: "What has gone particularly well for you this half year?" },
+    { type: "text", required: true, text: "Which factor most significantly impacted your experience this half year?" },
+  ]},
+  { title: "Performance, Goals and Role Support", qs: [
+    { type: "scale", text: "I clearly understand what is expected of me in my role.", low: "Strongly disagree", high: "Strongly agree" },
+    { type: "text", required: true, multi: true, text: "How did you feel about H1 performance appraisals and reviews?", help: "What did you like? What did you not like? What would you like to see done differently?" },
+    { type: "likert", required: true, text: "Rate the following aspects of your current role.", cols: AGREE, rows: [
+      "My responsibilities are clearly defined",
+      "I have the tools and resources I need to do my job well",
+      "My role makes good use of my skills",
+      "I have the freedom to decide how I do my work",
+      "I get regular feedback that helps me improve",
+    ]},
+    { type: "scale", required: true, text: "On a scale of 1 to 5, how connected do you feel to Rank's mission and goals?", low: "Not connected", high: "Very connected" },
+    { type: "text", required: true, text: "What would help you be more effective in your role over the next half year?" },
+  ]},
+  { title: "Team Lead Support, Inclusion and Communication", qs: [
+    { type: "scale", required: true, text: "How would you rate your team lead's support and communication?", low: "Very poor", high: "Excellent" },
+    { type: "choice", required: true, text: "How often do you have 1:1s with your team lead?", options: ["Daily", "Weekly", "Monthly", "Seasonal/Rarely", "Yearly", "Never"] },
+    { type: "choice", required: true, text: "How helpful are your 1:1s when they happen?", options: ["Extremely helpful", "Helpful", "Somewhat helpful", "Not helpful"] },
+  ]},
+  { title: "Learning and Development", qs: [
+    { type: "scale", text: "How would you rate your opportunities for professional growth and learning this half year?", low: "Very poor", high: "Excellent" },
+    { type: "choice", required: true, text: "I can see opportunities for growth and development at Rank.", options: ["Yes", "No"] },
+  ]},
+  { title: "Career Aspirations and Job Satisfaction", qs: [
+    { type: "choice", required: true, text: "Do you feel your work is meaningful and impactful?", options: ["Yes", "No", "Maybe"] },
+    { type: "choice", required: true, text: "Do you feel your career aspirations can be achieved at Rank?", options: ["Yes", "No", "Maybe"] },
+    { type: "text", required: true, text: "Please share the reason for your answer above." },
+    { type: "choice", required: true, text: "Do you feel recognised for your contributions within the team?", options: ["Yes", "No"] },
+    { type: "scale", required: true, text: "Does your workload feel manageable most of the time?", low: "Rarely", high: "Always" },
+    { type: "scale", required: true, text: "How engaged do you feel within the business outside of your daily work responsibilities?", low: "Not engaged", high: "Very engaged" },
+    { type: "text", required: true, multi: true, text: "What is your honest review of the Deposit Drive activity so far?" },
+    { type: "text", required: true, text: "What does culture at Rank mean to you?" },
+    { type: "text", required: true, multi: true, text: "What is one thing that would make your day-to-day experience at Rank and within your team better?" },
+    { type: "text", required: true, text: "What makes you most excited about working at Rank?" },
+  ]},
+  { title: "People Experience & Culture Team at Rank", qs: [
+    { type: "choice", required: true, text: "I know where to go when I need support from the People Experience & Culture team.", options: ["Yes", "No"] },
+    { type: "scale", required: true, text: "The People Experience & Culture team provides timely and helpful support when I need assistance.", low: "Strongly disagree", high: "Strongly agree" },
+    { type: "text", required: true, multi: true, text: "Can you share an example of a recent interaction with the People Experience & Culture team that positively or negatively impacted your experience?" },
+    { type: "text", required: true, text: "How can the People Experience & Culture team better support you?" },
+    { type: "text", required: true, text: "What is one thing that Rank can improve on?" },
+  ]},
+];
+
+/* ---------- flatten into screens ---------- */
+const QUESTIONS = [];
+const SCREENS = [{ kind: "welcome" }];
+SECTIONS.forEach((s, si) => {
+  const first = QUESTIONS.length + 1;
+  SCREENS.push({ kind: "section", si, first, last: first + s.qs.length - 1 });
+  s.qs.forEach(q => {
+    q.n = QUESTIONS.length + 1; q.si = si; q.id = "q" + q.n;
+    QUESTIONS.push(q);
+    SCREENS.push({ kind: "q", q });
+  });
+});
+SCREENS.push({ kind: "done" });
+const LAST_Q = QUESTIONS[QUESTIONS.length - 1];
+
+/* ---------- storage ---------- */
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem("rank.survey." + k)); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem("rank.survey." + k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem("rank.survey." + k); } catch {} },
+};
+const draft = store.get("draft");
+const state = {
+  i: 0,
+  answers: (draft && draft.answers) || {},
+  responseId: (draft && draft.responseId) || newId(),
+  sending: false,
+  sent: false,
+  sendError: null,
+};
+function newId() {
+  try { return crypto.randomUUID(); } catch { return "r-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10); }
+}
+function saveDraft() { store.set("draft", { answers: state.answers, responseId: state.responseId, i: state.i }); }
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const icons = () => { try { window.lucide && lucide.createIcons({ attrs: { "aria-hidden": "true" } }); } catch {} };
+const isAnswered = q => {
+  const a = state.answers[q.id];
+  if (q.type === "likert") return !!a && q.rows.every((_, r) => a[r] != null);
+  if (q.type === "text") return !!a && a.trim().length > 0;
+  return a != null && a !== "";
+};
+
+/* ---------- progress ---------- */
+function renderProgress() {
+  const scr = SCREENS[state.i];
+  const si = scr.kind === "q" ? scr.q.si : scr.kind === "section" ? scr.si : scr.kind === "done" ? SECTIONS.length : -1;
+  const bar = $("prog-bar");
+  if (!bar.children.length) bar.innerHTML = SECTIONS.map(() => "<span><i></i></span>").join("");
+  [...bar.children].forEach((seg, k) => {
+    let f = 0;
+    if (k < si) f = 1;
+    else if (k === si && scr.kind === "q") { const s = SECTIONS[k]; f = (s.qs.indexOf(scr.q) + 1) / s.qs.length; }
+    seg.firstChild.style.setProperty("--f", f);
+  });
+  $("prog-section").textContent = si >= 0 && si < SECTIONS.length ? `Section ${si + 1} of ${SECTIONS.length}: ${SECTIONS[si].title}` : "Employee Experience Survey";
+  $("prog-count").textContent = scr.kind === "q" ? `${scr.q.n} of ${QUESTIONS.length}` : "";
+  $("nav").hidden = scr.kind === "welcome" || scr.kind === "done";
+  $("nav-back").disabled = state.i <= 1;
+  $("nav-next").disabled = scr.kind === "q" && scr.q === LAST_Q;
+}
+
+/* ---------- screen templates ---------- */
+function welcomeHTML() {
+  const resumeAt = draft && Object.keys(state.answers).length ? Math.min(draft.i || 1, SCREENS.length - 2) : 0;
+  return `<section class="welcome">
+    <h1 id="screen-title" tabindex="-1">Rank H2 2026 Employee Experience Survey</h1>
+    <p class="lead">This survey is completely anonymous. It's your chance to share how working at Rank has been during the second half of 2026.</p>
+    <p class="more">We're looking at the Deposit Drive, performance, growth and development, manager effectiveness, collaboration, culture, wellbeing and support from the People Experience & Culture team. Your answers will help us see what's working, fix what isn't, and shape business and people decisions. Please be honest and constructive.</p>
+    <p class="more">Thank you for taking the time to help shape a better Rank.</p>
+    <ul class="facts">
+      <li><i data-lucide="eye-off" class="icon"></i>Anonymous, no name or email asked</li>
+      <li><i data-lucide="list-checks" class="icon"></i>${QUESTIONS.length} questions</li>
+      <li><i data-lucide="clock" class="icon"></i>About 10 minutes</li>
+    </ul>
+    <div class="actions">
+      <button type="button" class="btn" data-act="start">${resumeAt ? "Continue" : "Start"}<i data-lucide="arrow-right" class="icon"></i></button>
+      <span class="enter-hint">press <b>Enter ↵</b></span>
+    </div>
+    ${resumeAt ? `<p class="resume">Your answers so far are saved on this device. <button type="button" data-act="restart">Start over instead</button></p>` : ""}
+  </section>`;
+}
+function sectionHTML(scr) {
+  const s = SECTIONS[scr.si];
+  return `<section class="section-intro">
+    <p class="count">Section ${scr.si + 1} of ${SECTIONS.length}</p>
+    <h2 id="screen-title" tabindex="-1">${esc(s.title)}</h2>
+    <p class="sub">Questions ${scr.first} to ${scr.last}</p>
+    <div class="actions">
+      <button type="button" class="btn" data-act="next">Continue<i data-lucide="arrow-right" class="icon"></i></button>
+      <span class="enter-hint">press <b>Enter ↵</b></span>
+    </div>
+  </section>`;
+}
+function answerHTML(q) {
+  const a = state.answers[q.id];
+  if (q.type === "choice") {
+    return `<div class="choices${q.cols === 2 ? " two" : ""}" role="radiogroup" aria-labelledby="screen-title">` +
+      q.options.map((o, k) => `<button type="button" class="opt" role="radio" aria-checked="${a === o}" data-val="${esc(o)}">
+        <span class="key" aria-hidden="true">${LETTERS[k]}</span><span class="label">${esc(o)}</span><i data-lucide="check" class="icon tick"></i></button>`).join("") + `</div>`;
+  }
+  if (q.type === "scale") {
+    return `<div class="scale" role="radiogroup" aria-labelledby="screen-title">` +
+      [1, 2, 3, 4, 5].map(v => `<button type="button" class="opt" role="radio" aria-checked="${a === v}" data-val="${v}" aria-label="${v}${v === 1 ? ", " + q.low : v === 5 ? ", " + q.high : ""}">${v}</button>`).join("") +
+      `</div><div class="anchors" aria-hidden="true"><span>1 = ${esc(q.low)}</span><span>5 = ${esc(q.high)}</span></div>`;
+  }
+  if (q.type === "likert") {
+    const cur = a || {};
+    return `<div class="likert">
+      <div class="likert-legend">${q.cols.map((c, k) => `<span><b>${k + 1}</b> ${esc(c)}</span>`).join("")}</div>
+      ${q.rows.map((r, ri) => `<div class="lrow" data-row="${ri}">
+        <p id="${q.id}-r${ri}">${esc(r)}</p>
+        <div class="lopts" role="radiogroup" aria-labelledby="${q.id}-r${ri}">
+          ${q.cols.map((c, k) => `<button type="button" role="radio" aria-checked="${cur[ri] === k + 1}" data-row="${ri}" data-val="${k + 1}" aria-label="${k + 1}, ${esc(c)}">${k + 1}</button>`).join("")}
+        </div></div>`).join("")}
+    </div>`;
+  }
+  return `<label class="sr" for="in-${q.id}">Your answer</label>
+    <textarea class="text-in" id="in-${q.id}" rows="1" maxlength="3000" placeholder="Type your answer here…">${esc(a || "")}</textarea>
+    <p class="count-hint"><span class="enter-hint"><b>Shift + Enter ↵</b> for a new line</span></p>`;
+}
+function questionHTML(q) {
+  const isLast = q === LAST_Q;
+  const auto = q.type === "choice" || q.type === "scale";
+  return `<section class="q" data-q="${q.id}">
+    <div class="q-head">
+      <span class="qn">${q.n}<i data-lucide="arrow-right" class="icon"></i></span>
+      <h2 id="screen-title" tabindex="-1">${esc(q.text)}${q.required ? ' <span class="req" aria-label="required">*</span>' : ""}</h2>
+      ${q.help ? `<p class="help">${esc(q.help)}</p>` : ""}
+    </div>
+    <div class="answer">${answerHTML(q)}</div>
+    <div class="actions">
+      <button type="button" class="btn" data-act="${isLast ? "submit" : "next"}">${isLast ? "Submit" : "OK"}<i data-lucide="${isLast ? "send" : "check"}" class="icon"></i></button>
+      <span class="enter-hint">${auto && !isLast ? `press a ${q.type === "scale" ? "number" : "letter"} key, or ` : ""}press <b>Enter ↵</b></span>
+    </div>
+    <p class="err" role="alert" hidden></p>
+  </section>`;
+}
+function doneHTML() {
+  const preview = !CONFIG.endpoint || /^%%/.test(CONFIG.endpoint);
+  return `<section class="done">
+    <div class="mark"><i data-lucide="check" class="icon"></i></div>
+    <h2 id="screen-title" tabindex="-1">Thank you. Your answers are in.</h2>
+    <p>Your response was recorded without your name. We'll share what we learn and what we're doing about it.</p>
+    ${preview ? `<span class="note">This is a preview, so your answers weren't sent anywhere. The live survey saves each response as a new row in the Google Sheet.</span>` : ""}
+    <div class="actions"><button type="button" class="btn ghost" data-act="again">Start a new response</button></div>
+  </section>`;
+}
+
+/* ---------- navigation ---------- */
+let current = null;
+function show(i, dir = 1) {
+  state.i = Math.max(0, Math.min(SCREENS.length - 1, i));
+  const scr = SCREENS[state.i];
+  const html = scr.kind === "welcome" ? welcomeHTML() : scr.kind === "section" ? sectionHTML(scr) : scr.kind === "q" ? questionHTML(scr.q) : doneHTML();
+  const el = document.createElement("div");
+  el.className = "screen " + (dir > 0 ? "from-below" : "from-above");
+  el.innerHTML = html;
+  const stage = $("stage");
+  if (current) {
+    const old = current;
+    old.classList.add(dir > 0 ? "to-above" : "to-below");
+    old.setAttribute("aria-hidden", "true");
+    setTimeout(() => old.remove(), reduceMotion ? 0 : 240);
+  }
+  stage.appendChild(el);
+  current = el;
+  icons();
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("from-below", "from-above")));
+  if (scr.kind === "q" || scr.kind === "section") saveDraft();
+  renderProgress();
+  window.scrollTo({ top: 0, behavior: "auto" });
+  focusScreen(el, scr);
+}
+function focusScreen(el, scr) {
+  setTimeout(() => {
+    const ta = el.querySelector("textarea");
+    if (ta && matchMedia("(hover: hover)").matches) { ta.focus(); grow(ta); ta.setSelectionRange(ta.value.length, ta.value.length); return; }
+    if (ta) grow(ta);
+    const t = el.querySelector("#screen-title");
+    if (t) t.focus({ preventScroll: true });
+  }, reduceMotion ? 0 : 120);
+}
+function grow(ta) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + "px"; }
+
+function showError(msg, el = current) {
+  const e = el.querySelector(".err");
+  if (!e) return;
+  e.innerHTML = `<i data-lucide="circle-alert" class="icon"></i>${esc(msg)}`;
+  e.hidden = false;
+  e.style.animation = "none"; void e.offsetWidth; e.style.animation = "";
+  icons();
+}
+function validate(q) {
+  if (!q.required || isAnswered(q)) return true;
+  if (q.type === "likert") {
+    const a = state.answers[q.id] || {};
+    current.querySelectorAll(".lrow").forEach(r => r.classList.toggle("missing", a[r.dataset.row] == null));
+    showError("Please rate every line before moving on.");
+  } else showError(q.type === "text" ? "Please write an answer before moving on." : "Please choose an answer before moving on.");
+  return false;
+}
+function next() {
+  const scr = SCREENS[state.i];
+  if (scr.kind === "q") {
+    if (!validate(scr.q)) return;
+    if (scr.q === LAST_Q) return submit();
+  }
+  show(state.i + 1, 1);
+}
+function back() { if (state.i > 1) show(state.i - 1, -1); }
+
+/* ---------- answering ---------- */
+let advanceTimer = null;
+function pick(btn) {
+  const scr = SCREENS[state.i];
+  if (scr.kind !== "q") return;
+  const q = scr.q;
+  if (q.type === "likert") {
+    const row = +btn.dataset.row, val = +btn.dataset.val;
+    const a = { ...(state.answers[q.id] || {}) }; a[row] = val; state.answers[q.id] = a;
+    btn.parentElement.querySelectorAll("button").forEach(b => b.setAttribute("aria-checked", String(b === btn)));
+    btn.closest(".lrow").classList.remove("missing");
+    saveDraft();
+    if (isAnswered(q)) current.querySelector(".err").hidden = true;
+    return;
+  }
+  const val = q.type === "scale" ? +btn.dataset.val : btn.dataset.val;
+  state.answers[q.id] = val;
+  btn.parentElement.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-checked", String(b === btn)));
+  current.querySelector(".err").hidden = true;
+  saveDraft();
+  clearTimeout(advanceTimer);
+  if (!reduceMotion) { btn.classList.remove("blink"); void btn.offsetWidth; btn.classList.add("blink"); }
+  if (q !== LAST_Q) advanceTimer = setTimeout(() => { if (SCREENS[state.i].q === q) next(); }, reduceMotion ? 250 : 480);
+}
+
+/* ---------- submit ---------- */
+function buildFields() {
+  const fields = [];
+  for (const q of QUESTIONS) {
+    const label = `Q${q.n}. ${q.text}`;
+    const a = state.answers[q.id];
+    if (q.type === "likert") q.rows.forEach((r, ri) => fields.push([`Q${q.n}. ${r}`, a && a[ri] != null ? `${a[ri]} - ${q.cols[a[ri] - 1]}` : ""]));
+    else fields.push([label, a == null ? "" : String(a).trim()]);
+  }
+  return fields;
+}
+async function post(body) {
+  try {
+    const res = await fetch(CONFIG.endpoint, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body, redirect: "follow" });
+    if (!res.ok) throw new Error("status " + res.status);
+    const data = await res.json().catch(() => ({ ok: true }));
+    if (data && data.ok === false) throw new Error(data.error || "rejected");
+    return true;
+  } catch (err) {
+    if (err instanceof TypeError) {           // blocked by the browser; send without reading the reply
+      await fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body });
+      return true;
+    }
+    throw err;
+  }
+}
+async function submit() {
+  const missing = QUESTIONS.find(q => q.required && !isAnswered(q));
+  if (missing) { show(SCREENS.findIndex(s => s.q === missing), -1); setTimeout(() => validate(missing), 300); return; }
+  const btn = current.querySelector('[data-act="submit"]');
+  const preview = !CONFIG.endpoint || /^%%/.test(CONFIG.endpoint);
+  if (!preview) {
+    btn.setAttribute("aria-busy", "true");
+    btn.innerHTML = `Sending<i data-lucide="loader-circle" class="icon"></i>`; icons();
+    try {
+      await post(JSON.stringify({ id: state.responseId, fields: buildFields() }));
+    } catch (e) {
+      btn.removeAttribute("aria-busy");
+      btn.innerHTML = `Try again<i data-lucide="send" class="icon"></i>`; icons();
+      showError("Your answers didn't send. Check your connection and try again. Nothing is lost, they're saved on this device.");
+      return;
+    }
+  }
+  store.del("draft");
+  store.set("submitted", Date.now());
+  state.sent = true;
+  show(SCREENS.length - 1, 1);
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const act = e.target.closest("[data-act]");
+  if (act) {
+    const a = act.dataset.act;
+    if (a === "start") { const at = draft && Object.keys(state.answers).length ? Math.min(draft.i || 1, SCREENS.length - 2) : 1; show(at, 1); }
+    else if (a === "next") next();
+    else if (a === "submit") submit();
+    else if (a === "restart" || a === "again") { state.answers = {}; state.responseId = newId(); store.del("draft"); show(1, 1); }
+    return;
+  }
+  const opt = e.target.closest(".opt, .lopts button");
+  if (opt && current && current.contains(opt)) pick(opt);
+});
+$("nav-next").addEventListener("click", next);
+$("nav-back").addEventListener("click", back);
+document.addEventListener("input", e => {
+  if (!e.target.matches(".text-in")) return;
+  const q = SCREENS[state.i].q;
+  state.answers[q.id] = e.target.value;
+  grow(e.target);
+  if (e.target.value.trim()) current.querySelector(".err").hidden = true;
+  saveDraft();
+});
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const scr = SCREENS[state.i];
+  const inText = e.target.matches && e.target.matches("textarea");
+  if (e.key === "Enter") {
+    if (inText && e.shiftKey) return;
+    if (e.target.closest && e.target.closest("button") && !inText) return;  // let buttons handle their own Enter
+    e.preventDefault();
+    if (scr.kind === "welcome") current.querySelector('[data-act="start"]').click();
+    else if (scr.kind === "done") return;
+    else next();
+    return;
+  }
+  if (inText || scr.kind !== "q") return;
+  const q = scr.q;
+  if (q.type === "choice") {
+    const k = LETTERS.indexOf(e.key.toUpperCase());
+    if (e.key.length === 1 && k >= 0 && k < q.options.length) { e.preventDefault(); pick(current.querySelectorAll(".opt")[k]); }
+  } else if (q.type === "scale" && /^[1-5]$/.test(e.key)) {
+    e.preventDefault(); pick(current.querySelectorAll(".opt")[+e.key - 1]);
+  } else if (q.type === "likert" && /^[1-5]$/.test(e.key)) {
+    const a = state.answers[q.id] || {};
+    const row = q.rows.findIndex((_, r) => a[r] == null);
+    if (row >= 0) { e.preventDefault(); pick(current.querySelector(`.lopts button[data-row="${row}"][data-val="${e.key}"]`)); }
+  }
+});
+
+window.__survey = { state, QUESTIONS, SCREENS, buildFields };
+show(0, 1);
+})();
+</script>
