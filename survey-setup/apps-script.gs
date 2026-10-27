@@ -22,8 +22,7 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     if (!data || !data.id || !Array.isArray(data.fields)) return reply({ ok: false, error: 'Bad request' });
 
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+    const sheet = getSheet();
 
     let headers = sheet.getLastColumn() > 0
       ? sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(String)
@@ -59,8 +58,32 @@ function doPost(e) {
 }
 
 // Visit the /exec URL in a browser to check the script is running.
-function doGet() {
-  return reply({ ok: true, message: 'Rank survey endpoint is running.' });
+// The survey also calls ?check=<id>&callback=<fn> to confirm a response was saved.
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.check && /^[A-Za-z_$][\w$]{0,60}$/.test(p.callback || '')) {
+    let found = false;
+    try {
+      const sheet = getSheet();
+      const headers = sheet.getLastColumn() > 0 ? sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(String) : [];
+      const idCol = headers.indexOf('Response ID') + 1;
+      if (idCol > 0 && sheet.getLastRow() > 1) {
+        found = !!sheet.getRange(2, idCol, sheet.getLastRow() - 1, 1)
+          .createTextFinder(String(p.check)).matchEntireCell(true).findNext();
+      }
+    } catch (err) {}
+    return ContentService.createTextOutput(p.callback + '(' + JSON.stringify({ found: found }) + ');')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  let status = 'Rank survey endpoint is running.';
+  try { getSheet(); } catch (err) { status = 'Running, but: ' + err.message; }
+  return reply({ ok: true, message: status });
+}
+
+function getSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error('This script is not attached to a sheet. Open the sheet, then Extensions > Apps Script, and paste it there.');
+  return ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 }
 
 // Stop answers from being read as spreadsheet formulas, and cap their length.
