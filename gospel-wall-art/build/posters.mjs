@@ -1,4 +1,5 @@
 // Gospel wall art — poster definitions. Coordinates in % of poster, type in vw (poster width).
+const E = !!process.env.EDITABLE;
 export const C = { or:'#F2611D', deep:'#C9431A', cream:'#F4EADB', ink:'#1C1915', blue:'#24408E', sun:'#FFB238', pink:'#F4B6C0', green:'#2F5D3A', paper:'#FBF6EE' };
 // fit box: text stretched to exactly fill a box (glyph bounds). rot = -90 reads bottom-to-top.
 const fit = (text, x, y, w, h, fill, font = 'Anton', weight = 400, rot = 0, ls = 0) =>
@@ -9,10 +10,10 @@ const arrow = (x, y, w, h, dir, fill) => { const r = {r:0,d:90,l:180,u:-90,ur:-4
 
 export const posters = [
 { id:'01-he-is-worthy', name:'He Is Worthy', w:24, h:36, bg:C.cream, html:
-  fit('WOR',4,3.5,92,41,C.or,'Archivo Black') +
+  fit('WOR',4,3.5,92,41,C.or,E?'Anton':'Archivo Black') +
   `<div class="t" style="left:4%;top:46.6%;width:92%;display:flex;justify-content:space-between;align-items:center;font:900 7.4vw/1 Inter;color:${C.ink};letter-spacing:-.02em">
      <span>HE IS</span><span style="flex:1;height:.6vw;background:${C.ink};margin:0 3vw"></span><span style="font:600 1.9vw/1.35 Inter;letter-spacing:.14em;text-align:right">REVELATION 4:11<br>GLORY · HONOUR · POWER</span></div>` +
-  fit('THY',4,55.5,92,41,C.or,'Archivo Black') },
+  fit('THY',4,55.5,92,41,C.or,E?'Anton':'Archivo Black') },
 
 { id:'02-hallelujah-i-am-not-alone', name:'Hallelujah, I Am Not Alone', w:18, h:24, bg:C.or, html:
   `<svg class="t" style="left:0;top:0;width:100%;height:100%" viewBox="0 0 100 133.33" preserveAspectRatio="none">
@@ -40,7 +41,7 @@ export const posters = [
 
 { id:'05-amen', name:'Amen', w:16, h:20, bg:C.or, html:
   `<div class="t" style="left:5%;top:4%;width:90%;height:84%;background:${C.ink}"></div>` +
-  fit('AMEN',10,8,80,76,C.or,'Archivo Black',400,-90) +
+  (E ? fit('AM',10,8,80,37,C.or,'Archivo Black') + fit('EN',10,47,80,37,C.or,'Archivo Black') : fit('AMEN',10,8,80,76,C.or,'Archivo Black',400,-90)) +
   t(5,91,`width:90%;display:flex;justify-content:space-between;font:800 2.4vw/1 Inter;letter-spacing:.18em;color:${C.ink}`,'<span>SO BE IT</span><span>REVELATION 22:20</span>') },
 
 { id:'06-psalm-ninety-one', name:'Psalm Ninety One', w:12, h:16, bg:C.paper, html:
