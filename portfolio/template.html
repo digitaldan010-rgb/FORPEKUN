@@ -1,0 +1,217 @@
+<title>Tobiloba Ayinde</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one quiet column; the work is a typographic index, each piece opens in a reader view */
+:root{
+  --bg:#FAFAF8; --fg:#121316; --muted:#6A6E76; --line:#E4E5E1; --soft:#F0F1EE; --accent:#2F45E8;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1012;--fg:#ECECE8;--muted:#9297A1;--line:#25272C;--soft:#17191C;--accent:#8E9CFF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1012;--fg:#ECECE8;--muted:#9297A1;--line:#25272C;--soft:#17191C;--accent:#8E9CFF;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--display);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* top */
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:22px}
+.mark{font-weight:700;font-size:16px;letter-spacing:-.01em;text-decoration:none}
+.mark span{color:var(--accent)}
+.top nav{display:flex;gap:22px}
+.top nav a{font-size:14px;text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--fg)}
+
+/* hero */
+.hero{padding-block:72px 56px}
+.hero h1{font-size:clamp(44px,9vw,104px);line-height:.95;letter-spacing:-.045em;font-weight:700;margin:18px 0 0;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-family:var(--read);font-size:clamp(18px,2.2vw,21px);line-height:1.55;color:var(--muted);max-width:40ch;margin:28px 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+.facts div{display:flex;flex-direction:column;gap:2px}
+.facts b{font-size:26px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--muted)}
+
+/* index */
+.index{padding-block:40px 24px}
+.idx-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:18px}
+.idx-head h2{font-size:30px;letter-spacing:-.03em;margin:0;font-weight:600}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);color:var(--muted);transition:.15s}
+.chip:hover{color:var(--fg);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip i{font-style:normal;opacity:.6;margin-left:4px;font-variant-numeric:tabular-nums}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:150px 1fr auto;gap:8px 28px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .2s,padding .2s}
+.row:hover{background:var(--soft);padding-left:14px;padding-right:14px}
+.row h3{font-size:clamp(20px,2.4vw,25px);font-weight:600;letter-spacing:-.02em;line-height:1.2;margin:0;min-width:0}
+.row p{grid-column:2;margin:6px 0 0;font-family:var(--read);font-size:15.5px;line-height:1.5;color:var(--muted);max-width:62ch}
+.row .mins{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.row:hover h3{color:var(--accent)}
+
+/* about */
+.about{padding-block:72px 40px;display:grid;grid-template-columns:150px 1fr;gap:28px}
+.about h2{font-size:clamp(26px,3.6vw,38px);letter-spacing:-.03em;line-height:1.15;font-weight:600;margin:0 0 18px;text-wrap:balance;max-width:24ch}
+.about p{font-family:var(--read);font-size:18px;line-height:1.65;max-width:60ch;margin:0 0 14px}
+.clients{display:flex;flex-wrap:wrap;gap:8px 26px;margin:26px 0 0;padding:0;list-style:none}
+.clients li{font-size:15px}
+.clients small{display:block;color:var(--muted);font-size:12.5px}
+.contact{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.email{font-size:clamp(20px,3vw,28px);font-weight:600;letter-spacing:-.02em;user-select:all;word-break:break-all}
+.copy{font-size:13px;padding:8px 14px;border-radius:999px;background:var(--accent);color:#fff}
+:root[data-theme="dark"] .copy{color:#0F1012}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .copy{color:#0F1012}}
+footer{padding-block:28px 48px;border-top:1px solid var(--line);margin-top:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* reader */
+.reader{position:fixed;inset:0;background:var(--bg);overflow-y:auto;z-index:5;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.rbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:2}
+.rbar .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+.back{font-size:14px;display:flex;gap:8px;align-items:center;color:var(--muted)}
+.back:hover{color:var(--fg)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0}
+.art{max-width:700px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:56px 40px}
+.art h1{font-size:clamp(32px,5.5vw,54px);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin:16px 0 18px;text-wrap:balance}
+.art .meta{display:flex;gap:16px;padding-bottom:30px;border-bottom:1px solid var(--line);margin-bottom:34px}
+.body{font-family:var(--read);font-size:19.5px;line-height:1.72}
+.body p{margin:0 0 1.15em}
+.body h3{font-family:var(--display);font-size:24px;letter-spacing:-.02em;line-height:1.25;margin:1.9em 0 .6em;font-weight:600}
+.body ul,.body ol{padding-left:1.3em;margin:0 0 1.2em}
+.body li{margin-bottom:.4em}
+.body li p{margin:0}
+.body a{color:var(--accent);text-underline-offset:3px}
+
+.body table{border-collapse:collapse;font-size:16px;display:block;overflow-x:auto;margin:0 0 1.2em}
+.body td,.body th{border:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.body blockquote{margin:1.4em 0;padding-left:20px;border-left:2px solid var(--accent);color:var(--muted)}
+.next{max-width:700px;margin:0 auto 80px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.next a{display:block;text-decoration:none;border-top:1px solid var(--line);padding-top:24px}
+.next b{display:block;font-size:clamp(22px,3vw,30px);letter-spacing:-.025em;margin-top:8px;line-height:1.2}
+.next a:hover b{color:var(--accent)}
+
+@media (max-width:700px){
+  .row{grid-template-columns:1fr auto;padding-block:18px}
+  .row .label{grid-column:1/-1}
+  .row p{grid-column:1/-1}
+  .row:hover{padding-left:4px;padding-right:4px}
+  .about{grid-template-columns:1fr;gap:10px}
+  .top nav{gap:16px}
+  .hero{padding-block:44px 40px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="home">
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#">Tobiloba Ayinde<span>.</span></a>
+    <nav><a href="#work">Writing</a><a href="#about">About</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="label">Content writer · Fintech &amp; crypto</div>
+    <h1>I make crypto make <em>sense.</em></h1>
+    <p>DeFi, NFTs, Web3 and investing, explained in plain English for people who just want to understand what's going on.</p>
+    <div class="facts">
+      <div><b>10M+</b><span>impressions</span></div>
+      <div><b>~3%</b><span>click-through rate</span></div>
+      <div><b>5+ yrs</b><span>writing professionally</span></div>
+      <div><b id="countWords">44k</b><span>words in this collection</span></div>
+    </div>
+  </section>
+
+  <section class="index" id="work">
+    <div class="idx-head">
+      <h2>Selected writing</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter by topic"></div>
+    </div>
+    <ul class="list" id="list"></ul>
+  </section>
+
+  <section class="about" id="about">
+    <div class="label">About</div>
+    <div>
+      <h2>Five years of turning complicated money stuff into things people actually read.</h2>
+      <p>I'm Tobi, a content writer from Nigeria with a degree in Demography and Social Statistics from Obafemi Awolowo University. Most of my work lives where finance meets the internet: crypto exchanges, DeFi protocols, NFTs and the habits that make someone a better investor.</p>
+      <p>I write SEO articles, product copy, video scripts, onboarding guides and push notifications. The goal is always the same: explain it clearly, keep it human, and give readers a reason to click through.</p>
+      <ul class="clients">
+        <li>Dtunes, Crand Technologies<small>Content &amp; blog writer · 2023–2026</small></li>
+        <li>Henrique Centieiro<small>Freelance writer · 2022–2023</small></li>
+        <li>Prestmit<small>Social media &amp; blog · 2021</small></li>
+        <li>Mimie Jay<small>Lifestyle blog · 2020–2021</small></li>
+      </ul>
+      <div class="contact">
+        <span class="email" id="email">tobilobaranti@gmail.com</span>
+        <button class="copy" id="copy" type="button">Copy email</button>
+      </div>
+    </div>
+  </section>
+
+  <footer><span class="label">© Tobiloba Ayinde</span><span class="label">Nigeria</span></footer>
+</div>
+</div>
+
+<div class="reader" id="reader" hidden>
+  <div class="rbar"><div class="wrap">
+    <button class="back" id="back" type="button">← All writing</button>
+    <span class="label" id="rcat"></span>
+  </div><div class="progress" id="progress"></div></div>
+  <article class="art">
+    <div class="label" id="rlabel"></div>
+    <h1 id="rtitle"></h1>
+    <div class="meta"><span class="label">By Tobiloba Ayinde</span><span class="label" id="rmins"></span></div>
+    <div class="body" id="rbody"></div>
+  </article>
+  <div class="next" id="rnext"></div>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const A=JSON.parse(document.getElementById('data').textContent);
+const cats=['All',...new Set(A.map(a=>a.cat))];
+let cur='All', homeScroll=0;
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('countWords').textContent=Math.round(A.reduce((s,a)=>s+a.words,0)/1000)+'k';
+
+function renderFilters(){
+  $('filters').innerHTML=cats.map(c=>{const n=c==='All'?A.length:A.filter(a=>a.cat===c).length;
+    return `<button class="chip" type="button" aria-pressed="${c===cur}" data-c="${esc(c)}">${esc(c)}<i>${n}</i></button>`}).join('');
+}
+function renderList(){
+  $('list').innerHTML=A.filter(a=>cur==='All'||a.cat===cur).map(a=>
+    `<li><a class="row" href="#${a.slug}"><span class="label">${esc(a.cat)}</span><h3>${esc(a.title)}</h3><span class="mins">${a.mins} min</span><p>${esc(a.excerpt)}</p></a></li>`).join('');
+}
+$('filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cur=b.dataset.c;renderFilters();renderList();});
+
+function show(){
+  const slug=location.hash.slice(1), a=A.find(x=>x.slug===slug), r=$('reader');
+  if(!a){ if(!r.hidden){r.hidden=true;document.body.style.overflow='';window.scrollTo(0,homeScroll);}
+    else if(slug){const el=document.getElementById(slug); if(el) el.scrollIntoView();}
+    return; }
+  if(r.hidden) homeScroll=window.scrollY;
+  $('rcat').textContent=a.cat; $('rlabel').textContent=a.cat; $('rtitle').textContent=a.title;
+  $('rmins').textContent=a.mins+' min read'; $('rbody').innerHTML=a.body;
+  const i=A.indexOf(a), n=A[(i+1)%A.length];
+  $('rnext').innerHTML=`<a href="#${n.slug}"><span class="label">Next read · ${esc(n.cat)}</span><b>${esc(n.title)} →</b></a>`;
+  document.title=a.title+' · Tobiloba Ayinde';
+  r.hidden=false; r.scrollTop=0; document.body.style.overflow='hidden'; $('progress').style.width='0';
+}
+$('reader').addEventListener('scroll',e=>{const r=e.target;const m=r.scrollHeight-r.clientHeight;$('progress').style.width=(m>0?r.scrollTop/m*100:0)+'%';});
+$('back').addEventListener('click',()=>{location.hash='';});
+window.addEventListener('hashchange',()=>{show(); if(!location.hash.slice(1)||!A.some(a=>a.slug===location.hash.slice(1))) document.title='Tobiloba Ayinde';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('reader').hidden){location.hash='';}});
+$('copy').addEventListener('click',async()=>{const t=$('email').textContent,b=$('copy');
+  try{await navigator.clipboard.writeText(t);b.textContent='Copied';}
+  catch(_){const s=getSelection(),rg=document.createRange();rg.selectNodeContents($('email'));s.removeAllRanges();s.addRange(rg);b.textContent='Selected, press copy';}
+  setTimeout(()=>b.textContent='Copy email',2000);});
+renderFilters(); renderList(); show();
+</script>
