@@ -1,0 +1,2282 @@
+[
+{
+"id": "gid://shopify/Product/9684470956262",
+"title": "ZOLA Set",
+"status": "ACTIVE",
+"totalInventory": 18,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47506645057766",
+"price": "95000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47506645090534",
+"price": "95000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47506645123302",
+"price": "95000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47506645156070",
+"price": "95000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47506645188838",
+"price": "95000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401177051366",
+"title": "Geo Tee 2.0 in Black",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180096352486",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180096385254",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180096418022",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180096450790",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180096483558",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180096516326",
+"price": "64800.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402211176678",
+"title": "Geo Tee 2.0 in Black",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182810460390",
+"price": "64800.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182810362086",
+"price": "64800.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182810394854",
+"price": "64800.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182810427622",
+"price": "64800.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182810493158",
+"price": "64800.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182811508966",
+"price": "64800.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400395600102",
+"title": "Afrobird Tee in Pink",
+"status": "ACTIVE",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177508139238",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177508172006",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177508204774",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177508237542",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177508270310",
+"price": "66690.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402060968166",
+"title": "Afrobird Tee in Pink",
+"status": "ACTIVE",
+"totalInventory": 8,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182325264614",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182302687462",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182302720230",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182302752998",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182325297382",
+"price": "66690.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400394617062",
+"title": "Afrobird Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 6,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177507254502",
+"price": "66690.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177507287270",
+"price": "66690.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177507320038",
+"price": "66690.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177507352806",
+"price": "66690.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177507385574",
+"price": "66690.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402068635878",
+"title": "Afrobird Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 8,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182327001318",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182326903014",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182326935782",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182326968550",
+"price": "66690.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182327034086",
+"price": "66690.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8984490180838",
+"title": "Mother of Mankind Gown",
+"status": "ACTIVE",
+"totalInventory": 16,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/45850756612326",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45850756645094",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45850756677862",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45850756710630",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45850756743398",
+"price": "94000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400470540518",
+"title": "Kauye Gudu Top in Green",
+"status": "DRAFT",
+"totalInventory": 4,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177834901734",
+"price": "49504.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177837785318",
+"price": "49504.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400462184678",
+"title": "NACK PVC Polo in Yellow",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177806885094",
+"price": "56160.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177806917862",
+"price": "56160.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177806950630",
+"price": "56160.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177806983398",
+"price": "56160.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177807016166",
+"price": "56160.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400458809574",
+"title": "NACK Classic Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 16,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177796038886",
+"price": "76000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177796071654",
+"price": "76000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177796104422",
+"price": "76000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177796137190",
+"price": "76000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177796169958",
+"price": "76000.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402217566438",
+"title": "NACK Classic Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182826385638",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182826287334",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182826320102",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182826352870",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182826418406",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400453894374",
+"title": "NACK Classic Tee in Wine",
+"status": "ACTIVE",
+"totalInventory": 10,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177758322918",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177758355686",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177758388454",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177758421222",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177758453990",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402216550630",
+"title": "NACK Classic Tee in Wine",
+"status": "ACTIVE",
+"totalInventory": 10,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182823796966",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182823698662",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182823731430",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182823764198",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182823829734",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400456057062",
+"title": "NACK Classic Tee in Orange",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177780048102",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177780080870",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177780113638",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177780146406",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177780179174",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402217042150",
+"title": "NACK Classic Tee in Orange",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182825304294",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182825205990",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182825238758",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182825271526",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182825337062",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400456712422",
+"title": "NACK Classic Tee in White",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177784471782",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177784504550",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177784537318",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177784570086",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177784602854",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402213667046",
+"title": "NACK Classic Tee in White",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182815572198",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182815473894",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182815506662",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182815539430",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182815604966",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400454353126",
+"title": "NACK Classic Tee in Green",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177761370342",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177761435878",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177761501414",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177761566950",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177761632486",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402215141606",
+"title": "NACK Classic Tee in Green",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182820978918",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182820880614",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182820913382",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182820946150",
+"price": "76000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182821011686",
+"price": "76000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401198907622",
+"title": "LXN Jersey in Green",
+"status": "DRAFT",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180212580582",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203176166",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203208934",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203241702",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203274470",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203307238",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203340006",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180203372774",
+"price": "60400.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401197924582",
+"title": "LXN Jersey in Black",
+"status": "DRAFT",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180201603302",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198097126",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198129894",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198162662",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198195430",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198228198",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180198260966",
+"price": "60400.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401200939238",
+"title": "LXN Jersey in White",
+"status": "DRAFT",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180231946470",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180231979238",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224671974",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224704742",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224737510",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224770278",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224803046",
+"price": "60400.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180224835814",
+"price": "60400.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9694991876326",
+"title": "Zuri Dress in Blue",
+"status": "ACTIVE",
+"totalInventory": 8,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47558243090662",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558243123430",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558243156198",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558243188966",
+"price": "70000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9694994956518",
+"title": "Zuri Dress in Beige",
+"status": "ACTIVE",
+"totalInventory": 14,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47558256558310",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558272188646",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558272221414",
+"price": "70000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47558272254182",
+"price": "70000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8398315487462",
+"title": "Festac Native in Black",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44168830648550",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44168830681318",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8398315847910",
+"title": "Festac Native in Blue",
+"status": "ACTIVE",
+"totalInventory": 16,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44168830943462",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44168830976230",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8398316273894",
+"title": "Festac Native in Green",
+"status": "ACTIVE",
+"totalInventory": 13,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44168831697126",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44168831729894",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8894999888102",
+"title": "Festac Native  Dress in Wine",
+"status": "ACTIVE",
+"totalInventory": 14,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/45533684039910",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45533684072678",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400428597478",
+"title": "Festac Native  Dress in Blue",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44307952271590",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177591501030",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400420503782",
+"title": "Festac Native  Dress in Black",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177564860646",
+"price": "112000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177564893414",
+"price": "112000.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8445072670950",
+"title": "Festac Native  Dress in Brown",
+"status": "ACTIVE",
+"totalInventory": 13,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44307970195686",
+"price": "112000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307970228454",
+"price": "112000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8479814156518",
+"title": "NACK Addict Tee in White (Oversized)",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44414935630054",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414935662822",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414935695590",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414935728358",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414935761126",
+"price": "145000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8479826739430",
+"title": "NACK Addict Tee in Black (Oversized)",
+"status": "ACTIVE",
+"totalInventory": 8,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44414964924646",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414964957414",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414964990182",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414965022950",
+"price": "145000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44414965055718",
+"price": "145000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400394289382",
+"title": "Afropolitan Movement Tee in White",
+"status": "ACTIVE",
+"totalInventory": 6,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177506959590",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177506992358",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177507025126",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177507057894",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177507090662",
+"price": "69990.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402048811238",
+"title": "Afropolitan Movement Tee in White",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44307944538342",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182261203174",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182261235942",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182261268710",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307944571110",
+"price": "69990.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400394158310",
+"title": "Afropolitan Movement Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 1,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177506304230",
+"price": "69990.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177506336998",
+"price": "69990.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177506369766",
+"price": "69990.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177506402534",
+"price": "69990.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177506435302",
+"price": "69990.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400475947238",
+"title": "Afropolitan Movement Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 1,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177860198630",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177860231398",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177860264166",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44177860296934",
+"price": "69990.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307945521382",
+"price": "69990.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8400456941798",
+"title": "Ife Kingdom Tee 2.0 in Black",
+"status": "ACTIVE",
+"totalInventory": 11,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44177786110182",
+"price": "69900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177786142950",
+"price": "69900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177786175718",
+"price": "69900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177786208486",
+"price": "69900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44177786241254",
+"price": "69900.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402074009830",
+"title": "Ife Kingdom Tee 2.0 in Black",
+"status": "ACTIVE",
+"totalInventory": 6,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182343581926",
+"price": "69900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182343483622",
+"price": "69900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182343516390",
+"price": "69900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182343549158",
+"price": "69900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307934019814",
+"price": "69900.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454746079462",
+"title": "Fela Tee in White",
+"status": "ACTIVE",
+"totalInventory": 15,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333369655526",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333369688294",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333369721062",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333369753830",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333369786598",
+"price": "96900.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454746734822",
+"title": "Fela Tee in White",
+"status": "ACTIVE",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333375324390",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333375357158",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333375389926",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333375422694",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333375455462",
+"price": "96900.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454745260262",
+"title": "Fela Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333365854438",
+"price": "96900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333365887206",
+"price": "96900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333365919974",
+"price": "96900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333365952742",
+"price": "96900.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333365985510",
+"price": "96900.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454747783398",
+"title": "Fela Tee in Black",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333378994406",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333379027174",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333379059942",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333379092710",
+"price": "96900.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333379125478",
+"price": "96900.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401184129254",
+"title": "Ife Kingdom Sweat Top in Green",
+"status": "ACTIVE",
+"totalInventory": 13,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180115685606",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180115718374",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180115751142",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180115783910",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180115816678",
+"price": "90000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402117296358",
+"title": "Ife Kingdom Sweat Top in Green",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182501130470",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182501064934",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182517022950",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182501097702",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307924025574",
+"price": "90000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401184227558",
+"title": "Ife Kingdom Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 3,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180115947750",
+"price": "90000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180115980518",
+"price": "90000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180116013286",
+"price": "90000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180116046054",
+"price": "90000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180116078822",
+"price": "90000.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402107859174",
+"title": "Ife Kingdom Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 2,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182466429158",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182466330854",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44307931988198",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182466396390",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182496379110",
+"price": "90000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454736609510",
+"title": "Fela Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 16,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333335118054",
+"price": "112950.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333335150822",
+"price": "112950.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333335183590",
+"price": "112950.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44333335216358",
+"price": "112950.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454742802662",
+"title": "Fela Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 3,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333357695206",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333357727974",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333357760742",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333357793510",
+"price": "112950.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454741623014",
+"title": "Fela Sweat Top in Rose",
+"status": "ACTIVE",
+"totalInventory": 7,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333353500902",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333353533670",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333353566438",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333353599206",
+"price": "112950.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8454743785702",
+"title": "Fela Sweat Top in Rose",
+"status": "ACTIVE",
+"totalInventory": 2,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44333361266918",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333361299686",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333361332454",
+"price": "112950.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44333361365222",
+"price": "112950.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401188716774",
+"title": "NACK Classic Sweat Top in Burnt Orange",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180148846822",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180148879590",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180148912358",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180148945126",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180148977894",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402181783782",
+"title": "NACK Classic Sweat Top in Burnt Orange",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182694822118",
+"price": "99000.00",
+"compareAtPrice": "99000.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44182694756582",
+"price": "99000.00",
+"compareAtPrice": "99000.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44182694854886",
+"price": "99000.00",
+"compareAtPrice": "99000.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44182694789350",
+"price": "99000.00",
+"compareAtPrice": "99000.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44182694887654",
+"price": "99000.00",
+"compareAtPrice": "99000.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401185669350",
+"title": "NACK Classic Sweat Top in Green",
+"status": "ACTIVE",
+"totalInventory": 19,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180125319398",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180125352166",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180125384934",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180125417702",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180125450470",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402185453798",
+"title": "NACK Classic Sweat Top in Green",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182708945126",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182708879590",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182708977894",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182708912358",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182709010662",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401185145062",
+"title": "NACK Classic Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 17,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180122304742",
+"price": "99000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180122337510",
+"price": "99000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180122370278",
+"price": "99000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180122403046",
+"price": "99000.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/44180122435814",
+"price": "99000.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402178506982",
+"title": "NACK Classic Sweat Top in Black",
+"status": "ACTIVE",
+"totalInventory": 9,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182680994022",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182680928486",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182681026790",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182680961254",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182693380326",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8401186554086",
+"title": "NACK Classic Sweat Top in Wine",
+"status": "ACTIVE",
+"totalInventory": 14,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44180132954342",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180132987110",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180133019878",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180133052646",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44180133085414",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8402188173542",
+"title": "NACK Classic Sweat Top in Wine",
+"status": "ACTIVE",
+"totalInventory": 8,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/44182719004902",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182718939366",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182719037670",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182718972134",
+"price": "99000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/44182719070438",
+"price": "99000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8751625994470",
+"title": "NACK Art Silk Pant in Black",
+"status": "ACTIVE",
+"totalInventory": 22,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/45133649019110",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45133649051878",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45133649084646",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45133649117414",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45133649150182",
+"price": "90600.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8990322852070",
+"title": "NACK Art Silk Pant in Navy Blue",
+"status": "ACTIVE",
+"totalInventory": 14,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/45872879567078",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45872879599846",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45872879632614",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45872879665382",
+"price": "90600.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/45872879698150",
+"price": "90600.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/8751634284774",
+"title": "NACK Art Silk Pant in Beige",
+"status": "ACTIVE",
+"totalInventory": 30,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/45133678084326",
+"price": "90600.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/45133678117094",
+"price": "90600.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/45133678149862",
+"price": "90600.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/45133678182630",
+"price": "90600.00",
+"compareAtPrice": "0.00"
+},
+{
+"id": "gid://shopify/ProductVariant/45133678215398",
+"price": "90600.00",
+"compareAtPrice": "0.00"
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9762303541478",
+"title": "AKARA ORANGE SHIRT",
+"status": "ACTIVE",
+"totalInventory": 12,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47933991387366",
+"price": "125000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932315369702",
+"price": "125000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932315402470",
+"price": "125000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932315435238",
+"price": "125000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932315468006",
+"price": "125000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9680525164774",
+"title": "Female Stripe 2pcs",
+"status": "ACTIVE",
+"totalInventory": 0,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47492246995174",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47492247027942",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47492247060710",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47492247093478",
+"price": "90000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47492261347558",
+"price": "90000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9762294694118",
+"title": "MMVI SHIRT",
+"status": "ACTIVE",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47932286501094",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932286533862",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932286566630",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932286599398",
+"price": "94000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932286632166",
+"price": "94000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9762296758502",
+"title": "MOM SHIRT (Mother of Mankind)",
+"status": "ACTIVE",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47932290400486",
+"price": "119000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932290433254",
+"price": "119000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932290466022",
+"price": "119000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932290498790",
+"price": "119000.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47932290531558",
+"price": "119000.00",
+"compareAtPrice": null
+}
+]
+}
+},
+{
+"id": "gid://shopify/Product/9715865420006",
+"title": "\u1e62\u00e0k\u00f3so 2pcs",
+"status": "ACTIVE",
+"totalInventory": 5,
+"variants": {
+"nodes": [
+{
+"id": "gid://shopify/ProductVariant/47632318660838",
+"price": "220500.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47632318693606",
+"price": "220500.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47632318726374",
+"price": "220500.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47632318759142",
+"price": "220500.00",
+"compareAtPrice": null
+},
+{
+"id": "gid://shopify/ProductVariant/47632318791910",
+"price": "220500.00",
+"compareAtPrice": null
+}
+]
+}
+}
+]
