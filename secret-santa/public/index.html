@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rank Secret Santa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one dark chocolate stage, cream type, Rank orange for every action; a single gift box is the hero moment */
+:root{
+  --choc:#240701; --card:#3A1106; --card2:#4A1A0C; --line:#5A2A18;
+  --cream:#FBEFDF; --muted:#D9C6B8; --muted2:#A88B7D;
+  --orange:#FF6A00; --orange2:#FF8A3D; --orange3:#D65400; --gold:#FDBA30;
+  --ok:#7BD389; --err:#FF8A80;
+  --display:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --body:'DM Sans','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--choc);color:var(--cream)}
+body{font-family:var(--body);font-size:16px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--orange2)}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(36,7,1,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--choc)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--cream)}
+.brand img{height:30px;width:auto}
+.brand span{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);border-left:1px solid var(--line);padding-left:12px}
+nav.links{display:flex;gap:6px;flex-wrap:wrap}
+nav.links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;padding:8px 12px;border-radius:999px}
+nav.links a[aria-current="page"],nav.links a:hover{background:var(--card);color:var(--cream)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:999px;padding:14px 26px;font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;transition:transform .15s,background .15s}
+.btn.primary{background:var(--orange);color:var(--choc)}
+.btn.primary:hover{background:var(--orange2);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 2px var(--orange2)}
+.btn.small{padding:9px 16px;font-size:13px}
+.btn.danger{background:transparent;color:var(--err);box-shadow:inset 0 0 0 2px #6b2a22}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+
+main{padding-block:40px 120px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange2)}
+.muted{color:var(--muted)}.muted2{color:var(--muted2)}
+.panel{background:var(--card);border-radius:22px;padding:28px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:820px){.grid2{grid-template-columns:1fr}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:10px 36px}
+.hero h1{font-size:clamp(44px,7vw,92px);text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero .lede{font-size:19px;color:var(--muted);max-width:34em;margin-top:20px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-art{position:relative;justify-self:center;width:min(100%,400px)}
+.hero-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));animation:sway 5s ease-in-out infinite;transform-origin:50% 0}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:56px}.hero-art{width:min(70%,280px);order:-1}}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+.fact{background:var(--card);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fact b{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.fact.count{background:var(--orange);color:var(--choc)}
+.fact.count .muted{color:var(--choc);opacity:.75}
+@media (max-width:820px){.facts{grid-template-columns:1fr 1fr}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px;counter-reset:s}
+.step{border-top:2px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+.step .n{font-family:var(--display);font-weight:800;font-size:15px;color:var(--orange2)}
+.step h3{font-size:22px}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+
+/* hero sign-up card */
+.hero{grid-template-areas:"head card" "lede card"}
+.hero-head{grid-area:head;align-self:end}
+.hero .join-card{grid-area:card}
+.hero .hero-lede{grid-area:lede;align-self:start;margin-top:0}
+@media (max-width:820px){.hero{grid-template-areas:"head" "card" "lede"}.hero h1{font-size:clamp(38px,11vw,56px)}}
+.join-card{position:relative;overflow:visible;box-shadow:0 30px 60px rgba(0,0,0,.35);border:1px solid var(--line)}
+.bell-peek{position:absolute;right:-26px;top:-70px;width:120px;height:auto;transform:rotate(12deg);pointer-events:none;filter:drop-shadow(0 14px 20px rgba(0,0,0,.4))}
+.step .btn,.step .pill{align-self:flex-start;margin-top:8px}
+@media (max-width:820px){.bell-peek{width:84px;right:-6px;top:-50px}}
+/* forms */
+form{display:flex;flex-direction:column;gap:18px}
+label{display:flex;flex-direction:column;gap:8px;font-weight:700;font-size:14px}
+label small{font-weight:400;color:var(--muted2)}
+input,textarea,select{background:var(--choc);border:1.5px solid var(--line);border-radius:14px;padding:13px 15px;font-size:16px;width:100%}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--orange2);outline:none}
+.err{color:var(--err);font-size:14px;font-weight:500}
+.ideas{display:grid;gap:10px}
+.form-head{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.form-head h2{font-size:clamp(32px,4.5vw,48px)}
+.narrow{max-width:640px;margin:0 auto}
+.code-note{background:var(--card2);border-radius:14px;padding:12px 16px;font-size:14px;color:var(--muted)}
+.code-note b{color:var(--gold);font-family:var(--display);letter-spacing:.15em}
+
+/* dashboard */
+.dash-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.dash-head h2{font-size:clamp(34px,5vw,56px)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700;background:var(--card2);color:var(--muted)}
+.pill.on{background:rgba(123,211,137,.15);color:var(--ok)}
+.pill.wait{background:rgba(253,186,48,.14);color:var(--gold)}
+.wish dl{display:grid;grid-template-columns:150px 1fr;gap:10px 16px;margin:0}
+.wish dt{color:var(--muted2);font-size:14px}
+.wish dd{margin:0;min-width:0}
+.wish ol{margin:0;padding-left:20px}
+@media (max-width:560px){.wish dl{grid-template-columns:1fr}}
+
+/* reveal */
+.stage{position:relative;background:radial-gradient(circle at 50% 35%,#5A1D08 0%,var(--card) 60%);border-radius:26px;padding:40px 24px 36px;text-align:center;overflow:hidden;min-height:470px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.stage h3{font-size:clamp(24px,3.4vw,34px);max-width:16em}
+.gift{position:relative;width:200px;height:190px;cursor:pointer;background:none;border:0;padding:0}
+.gift .body{position:absolute;bottom:0;left:10px;right:10px;height:130px;background:var(--orange);border-radius:10px;box-shadow:inset 0 -14px 0 rgba(0,0,0,.12)}
+.gift .body::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:28px;transform:translateX(-50%);background:var(--cream)}
+.gift .lid{position:absolute;top:30px;left:0;right:0;height:42px;background:var(--orange2);border-radius:10px;z-index:2;transition:transform .7s cubic-bezier(.3,1.6,.5,1),opacity .7s}
+.gift .lid::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:30px;transform:translateX(-50%);background:var(--cream)}
+.gift .bow{position:absolute;left:50%;top:-30px;width:90px;height:40px;transform:translateX(-50%)}
+.gift .bow::before,.gift .bow::after{content:"";position:absolute;bottom:0;width:42px;height:34px;border:8px solid var(--cream);border-radius:50% 50% 10% 50%}
+.gift .bow::before{left:0;transform:rotate(-20deg)}.gift .bow::after{right:0;transform:rotate(20deg) scaleX(-1)}
+.gift.shake{animation:shake .9s ease-in-out infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-4deg)}40%{transform:rotate(4deg)}60%{transform:rotate(-2deg)}80%{transform:rotate(2deg)}}
+.gift.open{animation:none}
+.gift.open .lid{transform:translateY(-140px) rotate(-24deg);opacity:0}
+.coins-pop{position:absolute;left:50%;top:50%;width:180px;transform:translate(-50%,-50%) scale(.3);opacity:0;pointer-events:none}
+.stage.revealed .coins-pop{animation:pop 1.2s ease-out forwards}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-20%) scale(.3)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,-140%) scale(1)}}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:10px;height:16px;border-radius:2px;opacity:0;animation:fall 1.8s ease-in forwards}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(520px) rotate(540deg)}}
+.recipient{position:relative;z-index:2;width:100%;max-width:640px;text-align:left;background:var(--choc);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:18px;animation:rise .6s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.who{display:flex;align-items:center;gap:16px}
+.avatar{width:62px;height:62px;border-radius:50%;background:var(--orange);color:var(--choc);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px;flex:none}
+.who h4{font-family:var(--display);font-size:28px;font-weight:800;margin:0;letter-spacing:-.01em}
+
+/* organiser */
+.org-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start}
+@media (max-width:900px){.org-grid{grid-template-columns:1fr}}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+td .tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);margin-left:6px}
+.confirm{background:var(--card2);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.confirm .row{display:flex;gap:10px;flex-wrap:wrap}
+.outbox{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow:auto}
+.mail{background:var(--choc);border-radius:12px;padding:10px 14px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.mail b{font-weight:700}
+.stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.stat{background:var(--choc);border-radius:14px;padding:12px 16px;min-width:120px}
+.stat b{display:block;font-family:var(--display);font-size:28px;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* demo bar */
+.demo{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--cream);color:var(--choc);padding-bottom:env(safe-area-inset-bottom,0px)}
+.demo .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:10px}
+.demo strong{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;background:var(--choc);color:var(--cream);padding:4px 10px;border-radius:999px}
+.demo label{flex-direction:row;align-items:center;gap:8px;font-size:14px}
+.demo select{background:#fff;color:var(--choc);border-color:#d9c6b8;padding:8px 10px;border-radius:10px;width:auto;font-size:14px}
+.demo .btn.small{padding:8px 14px}
+.demo .btn.ghost{color:var(--choc);box-shadow:inset 0 0 0 2px #d9c6b8}
+.demo .hint{font-size:13px;color:#5A3A2C;flex:1;min-width:200px}
+
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--gold);color:var(--choc);font-weight:700;padding:12px 20px;border-radius:999px;z-index:40;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.snow{position:fixed;inset:0;pointer-events:none;z-index:0}
+.snow i{position:absolute;top:-10px;width:4px;height:4px;border-radius:50%;background:var(--cream);opacity:.35;animation:snow linear infinite}
+@keyframes snow{to{transform:translateY(110vh)}}
+main,header,footer{position:relative;z-index:1}
+footer{border-top:1px solid var(--line);padding-block:26px 110px;color:var(--muted2);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer img{height:70px;width:auto;opacity:.9}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.snow{display:none}}
+</style>
+</head>
+<body>
+<div class="snow" id="snow" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home"><img src="assets/logo-white.png" alt="Rank"><span>Christmas 2026</span></a>
+    <nav class="links" id="nav"></nav>
+  </div>
+</header>
+<main><div class="wrap" id="app"><p class="muted">Loading…</p></div></main>
+<footer>
+  <div class="wrap">
+    <p>Rank Secret Santa · The joy of giving, the fun of surprises. <a href="#organiser" style="color:var(--muted2)">Organisers</a></p>
+    <img src="assets/flowers.png" alt="">
+  </div>
+</footer>
+<div id="toastHost"></div>
+
+<script>
+(function(){
+'use strict';
+var ROUTES=['home','join','verify','wishlist','my-santa','organiser'];
+var TK='rank-santa-token',AK='rank-santa-admin';
+function get(k,ss){try{return (ss?sessionStorage:localStorage).getItem(k)}catch(e){return null}}
+function put(k,v,ss){try{var s=ss?sessionStorage:localStorage;v==null?s.removeItem(k):s.setItem(k,v)}catch(e){}}
+var token=get(TK),adminPass=get(AK,true),pendingEmail=get('rank-santa-pending',true);
+var pub=null,meData=null,admin=null;
+
+var app=document.getElementById('app');
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function initials(n){return String(n).split(' ').map(function(x){return x[0]||''}).slice(0,2).join('').toUpperCase()}
+function fmtDate(d){try{return new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long'})}catch(e){return d}}
+function daysTo(d){var t=new Date(d+'T00:00:00');var n=new Date();n.setHours(0,0,0,0);return Math.max(0,Math.round((t-n)/864e5))}
+function toast(msg){var h=document.getElementById('toastHost');h.innerHTML='<div class="toast" role="status">'+esc(msg)+'</div>';clearTimeout(toast.t);toast.t=setTimeout(function(){h.innerHTML=''},2800)}
+function go(r){if(location.hash==='#'+r)render();else location.hash=r}
+function route(){var h=(location.hash||'#home').slice(1);return ROUTES.indexOf(h)>=0?h:'home'}
+
+function api(path,opts){
+  opts=opts||{};var h={'content-type':'application/json'};
+  if(token)h.authorization='Bearer '+token;
+  if(opts.admin&&adminPass)h['x-admin-passcode']=adminPass;
+  return fetch('/api/'+path,{method:opts.method||'GET',headers:h,body:opts.body?JSON.stringify(opts.body):undefined})
+    .then(function(r){return r.json().catch(function(){return {}}).then(function(d){if(!r.ok){var e=new Error(d.error||'Something went wrong. Try again.');e.status=r.status;throw e}return d})});
+}
+function busy(btn,on,label){if(!btn)return;if(on){btn.dataset.l=btn.textContent;btn.textContent=label||'Please wait…';btn.disabled=true}else{btn.textContent=btn.dataset.l||btn.textContent;btn.disabled=false}}
+
+function nav(r){
+  var items=[['home','Home']];
+  if(token)items.push(['my-santa','My Secret Santa'],['wishlist','My wishlist']);else items.push(['join','Join or sign in']);
+  var html=items.map(function(i){return '<a href="#'+i[0]+'"'+(i[0]===r?' aria-current="page"':'')+'>'+i[1]+'</a>'}).join('');
+  if(token)html+='<a href="#home" id="signout">Sign out</a>';
+  document.getElementById('nav').innerHTML=html;
+  var so=document.getElementById('signout');if(so)so.addEventListener('click',function(e){e.preventDefault();api('signout',{method:'POST'}).catch(function(){});token=null;meData=null;put(TK,null);toast('Signed out');go('home')});
+}
+
+/* ---------- views ---------- */
+function step(n,h,t,btn){return '<div class="step"><span class="n">Step '+n+'</span><h3>'+h+'</h3><p class="muted">'+t+'</p>'+(btn||'')+'</div>'}
+function joinFields(){
+  return (pub.drawn?'':'<label for="jName">Full name <small>Only needed the first time</small><input id="jName" autocomplete="name" placeholder="e.g. Femi Adeyemi"></label>')+
+  '<label for="jEmail">Work email<input id="jEmail" type="email" autocomplete="email" required placeholder="you@'+esc(pub.settings.domain)+'"></label>'+
+  (pub.drawn?'':'<label for="jTeam">Team <small>Optional</small><input id="jTeam" placeholder="e.g. Marketing"></label>')+
+  '<p class="err" id="jErr" role="alert"></p><button class="btn primary" type="submit">'+(pub.drawn?'Email me a code':'Join the Secret Santa!')+'</button>'+
+  '<p class="muted2" style="font-size:13px">We\'ll email you a 6-digit code to confirm you work at Rank. Already joined? Just enter your email to sign in.</p>';
+}
+function heroCard(){
+  if(token){
+    var w=meData&&meData.me.wish;
+    return '<div class="panel join-card"><img class="bell-peek" src="assets/bell.png" alt=""><p class="eyebrow">You\'re registered ✓</p><h3 style="font-size:30px;margin:8px 0 10px">Hi '+esc(meData.me.name.split(' ')[0])+'</h3>'+
+      '<p class="muted">'+(w?'Your wishlist is saved. ':'Next: add your wishlist so your Santa knows what to get you. ')+(pub.drawn?'Your match is ready to reveal.':'Your match arrives on '+esc(fmtDate(pub.settings.drawDate))+'.')+'</p>'+
+      '<div class="ctas" style="margin-top:20px">'+(w?'':'<a class="btn primary" href="#wishlist">Make my wishlist</a>')+'<a class="btn '+(w?'primary':'ghost')+'" href="#my-santa">'+(pub.drawn?'Reveal my person':'My Secret Santa')+'</a></div></div>';
+  }
+  return '<div class="panel join-card" id="register"><img class="bell-peek" src="assets/bell.png" alt=""><p class="eyebrow">'+(pub.drawn?'Sign in':'Step 1 · Register here')+'</p><h3 style="font-size:30px;margin:8px 0 18px">'+(pub.drawn?'Sign in to see your match':'Join the Secret Santa')+'</h3>'+
+    '<form id="joinForm" novalidate>'+joinFields()+'</form></div>';
+}
+function vHome(){
+  var s=pub.settings,w=token&&meData&&meData.me.wish;
+  var b1=token?'<span class="pill on">Done</span>':'<a class="btn small primary" href="#register" data-scroll="register">Sign up now</a>';
+  var b2=w?'<a class="btn small ghost" href="#wishlist">Edit my wishlist</a>':(token?'<a class="btn small primary" href="#wishlist">Make my wishlist</a>':'<a class="btn small ghost" href="#register" data-scroll="register">Sign up first</a>');
+  var b3=pub.drawn?(token?'<a class="btn small primary" href="#my-santa">Reveal my person</a>':'<a class="btn small ghost" href="#register" data-scroll="register">Sign in to reveal</a>'):'<span class="pill wait">Opens '+esc(fmtDate(s.drawDate))+'</span>';
+  var b4='<span class="pill">'+esc(fmtDate(s.exchange))+'</span>';
+  return '<section class="hero"><div class="hero-head"><p class="eyebrow">Christmas is here, RankStars</p>'+
+    '<h1>It\'s the most wonderful time to <em>give!</em></h1></div>'+
+    heroCard()+'<p class="lede hero-lede">Spread some cheer, exchange thoughtful gifts and make someone\'s Christmas extra special. One colleague. One thoughtful gift. A whole lot of Christmas magic.</p></section>'+
+  '<section class="facts" aria-label="Event details">'+
+    '<div class="fact count"><span class="muted">Gift exchange in</span><b>'+daysTo(s.exchange)+' days</b><span class="muted">'+esc(fmtDate(s.exchange))+'</span></div>'+
+    '<div class="fact"><span class="muted2">Gift budget</span><b>'+esc(s.budget)+'</b><span class="muted">per person</span></div>'+
+    '<div class="fact"><span class="muted2">Sign-ups close</span><b>'+esc(fmtDate(s.regClose).split(' ').slice(1).join(' '))+'</b><span class="muted">Draw on '+esc(fmtDate(s.drawDate))+'</span></div>'+
+    '<div class="fact"><span class="muted2">RankStars in</span><b>'+pub.count+'</b><span class="muted">'+esc(s.place)+'</span></div></section>'+
+  '<section class="steps" id="how" aria-label="How it works">'+
+    step(1,'Sign up','Register with your Rank work email.',b1)+step(2,'Make a wishlist','Share three ideas, what you love and what to skip.',b2)+
+    step(3,'Get matched','The draw picks your person in secret.',b3)+step(4,'Exchange gifts','Celebrate together and find out who your Santa was.',b4)+'</section>';
+}
+function vJoin(){
+  if(token){setTimeout(function(){go('my-santa')});return ''}
+  return '<div class="narrow panel"><div class="form-head"><p class="eyebrow">Join or sign in</p><h2>'+(pub.drawn?'Sign in to see your match':'Join the Secret Santa')+'</h2><p class="muted">Only Rank employees can take part. Use your work email ending in @'+esc(pub.settings.domain)+'.</p></div>'+
+  '<form id="joinForm" novalidate>'+joinFields()+'</form></div>';
+}
+function vVerify(){
+  if(!pendingEmail){setTimeout(function(){go('join')});return ''}
+  return '<div class="narrow panel"><div class="form-head"><p class="eyebrow">Check your inbox</p><h2>Enter your 6-digit code</h2><p class="muted">We sent a code to <b>'+esc(pendingEmail)+'</b>. It expires in 15 minutes. Check your spam folder if you can\'t see it.</p></div>'+
+  '<form id="verifyForm" novalidate><label for="vCode">Code<input id="vCode" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000"></label>'+
+  '<p class="err" id="vErr" role="alert"></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" type="submit">Verify</button><a class="btn ghost" href="#join">Use a different email</a></div></form></div>';
+}
+function vWishlist(){
+  if(!token){setTimeout(function(){go('join')});return ''}
+  var w=meData.me.wish||{ideas:['','',''],likes:'',avoid:'',hints:''};
+  return '<div class="narrow panel"><div class="form-head"><p class="eyebrow">'+(meData.me.wish?'Your wishlist':'Last step')+'</p><h2>What would make your Christmas?</h2><p class="muted">Your Secret Santa sees this after the draw. Budget: '+esc(pub.settings.budget)+'.</p></div>'+
+  '<form id="wishForm" novalidate><div class="ideas">'+
+  [0,1,2].map(function(i){return '<label for="w'+i+'">Gift idea '+(i+1)+'<input id="w'+i+'" maxlength="120" value="'+esc(w.ideas[i]||'')+'" placeholder="'+['e.g. A good notebook','e.g. A plant for my desk','e.g. Wireless earbuds case'][i]+'"></label>'}).join('')+
+  '</div><label for="wLikes">Favourite colours, brands or interests <small>Optional</small><input id="wLikes" maxlength="200" value="'+esc(w.likes)+'"></label>'+
+  '<label for="wAvoid">Things you\'d rather not receive<input id="wAvoid" maxlength="200" value="'+esc(w.avoid)+'"></label>'+
+  '<label for="wHints">Any other hints for your Santa<textarea id="wHints" maxlength="400">'+esc(w.hints)+'</textarea></label>'+
+  '<p class="err" id="wErr" role="alert"></p><button class="btn primary" type="submit">Save my wishlist</button></form></div>';
+}
+function wishBlock(w){
+  if(!w)return '<p class="muted">No wishlist yet.</p>';
+  return '<dl><dt>Gift ideas</dt><dd><ol>'+(w.ideas||[]).filter(Boolean).map(function(i){return '<li>'+esc(i)+'</li>'}).join('')+'</ol></dd>'+
+  (w.likes?'<dt>Loves</dt><dd>'+esc(w.likes)+'</dd>':'')+(w.avoid?'<dt>Rather not</dt><dd>'+esc(w.avoid)+'</dd>':'')+(w.hints?'<dt>Hints</dt><dd>'+esc(w.hints)+'</dd>':'')+'</dl>';
+}
+function recipientCard(r){
+  var s=pub.settings;
+  return '<div class="recipient"><p class="eyebrow">You\'re gifting</p><div class="who"><div class="avatar">'+initials(r.name)+'</div><div><h4>'+esc(r.name)+'</h4><p class="muted">'+esc(r.team||'Rank')+'</p></div></div>'+
+  '<div class="wish">'+wishBlock(r.wish)+'</div><p class="muted2">Budget: '+esc(s.budget)+' · Exchange: '+esc(fmtDate(s.exchange))+' · '+esc(s.place)+'</p></div>';
+}
+function vMySanta(){
+  if(!token){setTimeout(function(){go('join')});return ''}
+  var m=meData.me,s=pub.settings;
+  var head='<div class="dash-head"><div><p class="eyebrow">Hi '+esc(m.name.split(' ')[0])+'</p><h2>My Secret Santa</h2></div>'+(meData.drawn?'<span class="pill on">Draw complete</span>':'<span class="pill wait">Draw on '+esc(fmtDate(s.drawDate))+'</span>')+'</div>';
+  if(!meData.drawn||!meData.hasMatch){
+    var title=meData.drawn?'The organisers are adding you to the draw':'Your match arrives on draw day';
+    return head+'<div class="grid2"><div class="panel"><p class="eyebrow">You\'re on the list</p><h3 style="font-size:30px;margin:10px 0 12px">'+title+'</h3><p class="muted">We\'ll email you when your Secret Santa is ready. Come back here to reveal the colleague you\'re gifting. '+meData.count+' RankStars have joined so far.</p>'+
+      '<div class="stat-row" style="margin-top:20px"><div class="stat"><span class="muted2">Exchange in</span><b>'+daysTo(s.exchange)+' days</b></div><div class="stat"><span class="muted2">Budget</span><b style="font-size:20px">'+esc(s.budget)+'</b></div></div></div>'+
+      '<div class="panel wish"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><p class="eyebrow">My wishlist</p><a class="btn small ghost" href="#wishlist">'+(m.wish?'Edit':'Add')+'</a></div>'+wishBlock(m.wish)+'</div></div>';
+  }
+  var stage='<div class="stage'+(meData.revealed?' revealed':'')+'" id="stage"><div class="confetti" id="confetti"></div>';
+  if(!meData.revealed)stage+='<p class="eyebrow">Your assignment is ready</p><h3>Psst… someone is waiting for a Christmas surprise!</h3>'+
+    '<button class="gift shake" id="gift" type="button" aria-label="Open the gift to reveal your person"><span class="lid"><span class="bow"></span></span><span class="body"></span></button>'+
+    '<button class="btn primary" id="reveal" type="button">Reveal my person</button>';
+  else stage+=recipientCard(meData.recipient);
+  stage+='<img class="coins-pop" src="assets/coins.png" alt=""></div>';
+  return head+stage+'<p class="muted2" style="margin-top:16px;text-align:center">Who is gifting you stays a secret until exchange day on '+esc(fmtDate(s.exchange))+'.</p>';
+}
+function vOrgLogin(err){
+  return '<div class="narrow panel"><div class="form-head"><p class="eyebrow">Organisers only</p><h2>Enter the organiser passcode</h2><p class="muted">This is the ADMIN_PASSCODE set in Netlify.</p></div>'+
+  '<form id="adminLogin" novalidate><label for="aPass">Passcode<input id="aPass" type="password" autocomplete="current-password"></label><p class="err" id="aErr" role="alert">'+esc(err||'')+'</p><button class="btn primary" type="submit">Open organiser view</button></form></div>';
+}
+function vOrganiser(){
+  if(!admin)return vOrgLogin();
+  var s=admin.settings,n=admin.people.length,ww=admin.people.filter(function(p){return p.hasWish}).length,rev=admin.people.filter(function(p){return p.revealed}).length;
+  var rows=admin.people.map(function(p){return '<tr><td><b>'+esc(p.name)+'</b><br><span class="muted2">'+esc(p.email)+'</span></td><td>'+esc(p.team||'–')+'</td><td>'+(p.hasWish?'<span class="pill on">Done</span>':'<span class="pill wait">Missing</span>')+'</td><td>'+(admin.drawn?(p.revealed?'<span class="pill on">Revealed</span>':'<span class="pill">Not yet</span>'):'<button class="btn small danger" data-remove="'+esc(p.email)+'" type="button">Remove</button>')+'</td></tr>'}).join('')||'<tr><td colspan="4" class="muted">Nobody has joined yet. Share the link with the team.</td></tr>';
+  var drawBox=!admin.drawn?
+    '<div class="confirm" id="drawBox"><p><b>Run the draw</b></p><p class="muted">Closes sign-ups, matches everyone at random (nobody gets themselves) and emails each person. Organisers never see who has who.</p>'+(n<3?'<p class="err">You need at least 3 people to run the draw.</p>':'')+'<div class="row"><button class="btn primary" id="drawAsk" type="button"'+(n<3?' disabled':'')+'>Run the draw</button></div></div>':
+    '<div class="confirm" id="drawBox"><p><b>Draw complete</b></p><p class="muted">'+n+' people matched. Matches are hidden from organisers.</p><div class="row"><button class="btn small ghost" id="resetAsk" type="button">Undo the draw</button></div></div>';
+  return '<div class="dash-head"><div><p class="eyebrow">Organiser view</p><h2>Secret Santa admin</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill '+(admin.drawn?'on':'wait')+'">'+(admin.drawn?'Draw complete':'Sign-ups open')+'</span><span class="pill '+(admin.emailReady?'on':'wait')+'">'+(admin.emailReady?'Email ready':'Email not set up')+'</span><button class="btn small ghost" id="aOut" type="button">Lock</button></div></div>'+
+  '<div class="stat-row"><div class="stat"><span class="muted2">Joined</span><b>'+n+'</b></div><div class="stat"><span class="muted2">Wishlists done</span><b>'+ww+'/'+n+'</b></div><div class="stat"><span class="muted2">Revealed</span><b>'+(admin.drawn?rev+'/'+n:'–')+'</b></div><div class="stat"><span class="muted2">Exchange in</span><b>'+daysTo(s.exchange)+'d</b></div></div>'+
+  '<div class="org-grid"><div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px"><p class="eyebrow">Participants</p><button class="btn small ghost" id="remind" type="button">Remind people with no wishlist</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Team</th><th>Wishlist</th><th>'+(admin.drawn?'Reveal':'')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<form id="addForm" style="margin-top:20px" novalidate><p class="eyebrow">Add someone'+(admin.drawn?' (late joiner)':'')+'</p><div class="grid2"><label for="adName">Full name<input id="adName"></label><label for="adEmail">Work email<input id="adEmail" type="email" placeholder="name@'+esc(s.domain)+'"></label></div><p class="err" id="adErr" role="alert"></p><button class="btn small primary" type="submit">Add person</button></form></div>'+
+  '<div style="display:flex;flex-direction:column;gap:20px">'+drawBox+
+  '<div class="panel"><p class="eyebrow" style="margin-bottom:14px">Event details</p><form id="setForm">'+
+    '<label for="sBudget">Gift budget<input id="sBudget" value="'+esc(s.budget)+'"></label>'+
+    '<div class="grid2"><label for="sClose">Sign-ups close<input id="sClose" type="date" value="'+esc(s.regClose)+'"></label><label for="sDraw">Draw date<input id="sDraw" type="date" value="'+esc(s.drawDate)+'"></label></div>'+
+    '<div class="grid2"><label for="sEx">Exchange date<input id="sEx" type="date" value="'+esc(s.exchange)+'"></label><label for="sDomain">Work email domain<input id="sDomain" value="'+esc(s.domain)+'"></label></div>'+
+    '<label for="sPlace">Where<input id="sPlace" value="'+esc(s.place)+'"></label><button class="btn small primary" type="submit">Save details</button></form></div></div></div>';
+}
+
+/* ---------- actions ---------- */
+function bind(r){
+  var f,$=function(id){return document.getElementById(id)};
+  if(r==='home')Array.prototype.forEach.call(document.querySelectorAll('[data-scroll]'),function(a){a.addEventListener('click',function(e){e.preventDefault();var t=$(a.getAttribute('data-scroll'));t.scrollIntoView({behavior:'smooth',block:'center'});var inp=t.querySelector('input');if(inp)setTimeout(function(){inp.focus({preventScroll:true})},350)})});
+  if((r==='join'||r==='home')&&(f=$('joinForm')))f.addEventListener('submit',function(e){
+    e.preventDefault();var btn=f.querySelector('button'),err=$('jErr');err.textContent='';busy(btn,true,'Sending…');
+    var email=$('jEmail').value.trim().toLowerCase();
+    api('request-code',{method:'POST',body:{email:email,name:$('jName')?$('jName').value:'',team:$('jTeam')?$('jTeam').value:''}})
+      .then(function(){pendingEmail=email;put('rank-santa-pending',email,true);go('verify')})
+      .catch(function(x){busy(btn,false);err.textContent=x.message});
+  });
+  if(r==='verify'&&(f=$('verifyForm')))f.addEventListener('submit',function(e){
+    e.preventDefault();var btn=f.querySelector('button'),err=$('vErr');err.textContent='';busy(btn,true,'Checking…');
+    api('verify',{method:'POST',body:{email:pendingEmail,code:$('vCode').value.trim()}})
+      .then(function(d){token=d.token;put(TK,token);put('rank-santa-pending',null,true);pendingEmail=null;return loadMe()})
+      .then(function(){toast('You\'re in!');go(meData.me.wish?'my-santa':'wishlist')})
+      .catch(function(x){busy(btn,false);err.textContent=x.message});
+  });
+  if(r==='wishlist'&&(f=$('wishForm')))f.addEventListener('submit',function(e){
+    e.preventDefault();var btn=f.querySelector('button'),err=$('wErr');err.textContent='';busy(btn,true,'Saving…');
+    api('wishlist',{method:'PUT',body:{ideas:[$('w0').value,$('w1').value,$('w2').value],likes:$('wLikes').value,avoid:$('wAvoid').value,hints:$('wHints').value}})
+      .then(function(d){meData.me.wish=d.wish;toast('Wishlist saved');go('my-santa')})
+      .catch(function(x){busy(btn,false);err.textContent=x.message});
+  });
+  if(r==='my-santa'){
+    var opening=false;
+    var open=function(){if(opening||meData.revealed)return;opening=true;var g=$('gift');g.classList.add('open');g.classList.remove('shake');busy($('reveal'),true,'Opening…');
+      var c=$('confetti'),cols=['#FF6A00','#FDBA30','#FBEFDF','#FF8A3D'];for(var i=0;i<60;i++){var p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%4];p.style.animationDelay=(Math.random()*.6)+'s';c.appendChild(p)}
+      Promise.all([api('reveal',{method:'POST'}),new Promise(function(res){setTimeout(res,750)})]).then(function(a){
+        meData.revealed=true;meData.recipient=a[0].recipient;var st=$('stage');st.classList.add('revealed');
+        Array.prototype.slice.call(st.children).forEach(function(ch){if(!ch.classList.contains('confetti')&&!ch.classList.contains('coins-pop'))ch.remove()});
+        st.insertAdjacentHTML('beforeend',recipientCard(a[0].recipient));
+      }).catch(function(x){opening=false;toast(x.message);render()});
+    };
+    if($('reveal'))$('reveal').addEventListener('click',open);if($('gift'))$('gift').addEventListener('click',open);
+  }
+  if(r==='organiser'){
+    if(!admin){$('adminLogin').addEventListener('submit',function(e){e.preventDefault();adminPass=$('aPass').value;loadAdmin().then(function(){put(AK,adminPass,true);render()}).catch(function(x){adminPass=null;$('aErr').textContent=x.message})});return}
+    var reload=function(msg){return loadAdmin().then(function(){if(msg)toast(msg);render()})};
+    var fail=function(x){toast(x.message)};
+    $('aOut').addEventListener('click',function(){admin=null;adminPass=null;put(AK,null,true);render()});
+    var ask=$('drawAsk');if(ask)ask.addEventListener('click',function(){
+      $('drawBox').querySelector('.row').innerHTML='<p style="flex-basis:100%">This closes sign-ups and emails everyone their match. Continue?</p><button class="btn primary" id="drawGo" type="button">Yes, run the draw</button><button class="btn ghost" id="drawNo" type="button">Cancel</button>';
+      $('drawGo').addEventListener('click',function(){busy($('drawGo'),true,'Drawing…');api('admin/draw',{method:'POST',admin:true}).then(function(d){reload('Draw complete. '+d.sent+' emails sent'+(d.failed?', '+d.failed+' failed':'')+'.')}).catch(fail)});
+      $('drawNo').addEventListener('click',render);
+    });
+    var ra=$('resetAsk');if(ra)ra.addEventListener('click',function(){
+      ra.parentNode.innerHTML='<p style="flex-basis:100%">This clears every match and reopens sign-ups. Anyone who already revealed will lose their match.</p><button class="btn danger" id="resetGo" type="button">Undo the draw</button><button class="btn ghost" id="resetNo" type="button">Keep it</button>';
+      $('resetGo').addEventListener('click',function(){api('admin/undo-draw',{method:'POST',admin:true}).then(function(){reload('Draw undone. Sign-ups are open again.')}).catch(fail)});
+      $('resetNo').addEventListener('click',render);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-remove]'),function(b){b.addEventListener('click',function(){
+      var em=b.getAttribute('data-remove');b.outerHTML='<button class="btn small danger" data-confirm type="button">Confirm remove</button>';
+      document.querySelector('[data-confirm]').addEventListener('click',function(){api('admin/remove',{method:'POST',admin:true,body:{email:em}}).then(function(){reload('Removed')}).catch(fail)});
+    })});
+    $('remind').addEventListener('click',function(){var b=this;busy(b,true,'Sending…');api('admin/remind',{method:'POST',admin:true}).then(function(d){reload(d.missing?'Reminder sent to '+d.sent+' of '+d.missing+' people':'Everyone has a wishlist')}).catch(function(x){busy(b,false);fail(x)})});
+    $('addForm').addEventListener('submit',function(e){e.preventDefault();api('admin/add',{method:'POST',admin:true,body:{name:$('adName').value,email:$('adEmail').value}}).then(function(){reload('Person added')}).catch(function(x){$('adErr').textContent=x.message})});
+    $('setForm').addEventListener('submit',function(e){e.preventDefault();api('admin/settings',{method:'PUT',admin:true,body:{budget:$('sBudget').value,regClose:$('sClose').value,drawDate:$('sDraw').value,exchange:$('sEx').value,domain:$('sDomain').value,place:$('sPlace').value}}).then(function(d){pub.settings=d.settings;reload('Event details saved')}).catch(fail)});
+  }
+}
+
+/* ---------- data + render ---------- */
+function loadPub(){return api('public').then(function(d){pub=d})}
+function loadMe(){if(!token)return Promise.resolve();return api('me').then(function(d){meData=d;pub.settings=d.settings;pub.drawn=d.drawn;pub.count=d.count}).catch(function(x){if(x.status===401||x.status===404){token=null;meData=null;put(TK,null)}else throw x})}
+function loadAdmin(){return api('admin',{admin:true}).then(function(d){admin=d})}
+function render(){
+  var r=route();nav(r);
+  var v={home:vHome,join:vJoin,verify:vVerify,wishlist:vWishlist,'my-santa':vMySanta,organiser:vOrganiser}[r];
+  app.innerHTML=v();bind(r);window.scrollTo(0,0);
+}
+function refresh(){
+  var r=route(),p=loadPub().then(loadMe);
+  if(r==='organiser'&&adminPass&&!admin)p=p.then(function(){return loadAdmin().catch(function(){adminPass=null;put(AK,null,true)})});
+  return p.then(render).catch(function(x){app.innerHTML='<div class="narrow panel"><h2 style="font-size:32px">We couldn\'t load the Secret Santa</h2><p class="muted" style="margin-top:12px">'+esc(x.message)+'</p><button class="btn primary" style="margin-top:20px" onclick="location.reload()">Try again</button></div>'});
+}
+window.addEventListener('hashchange',refresh);
+(function snow(){var s=document.getElementById('snow');for(var i=0;i<36;i++){var d=document.createElement('i');d.style.left=Math.random()*100+'%';d.style.animationDuration=(9+Math.random()*12)+'s';d.style.animationDelay=(-Math.random()*20)+'s';var z=2+Math.random()*4;d.style.width=d.style.height=z+'px';s.appendChild(d)}})();
+refresh();
+})();
+</script>
+</body>
+</html>
